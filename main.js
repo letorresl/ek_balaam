@@ -22,14 +22,20 @@ module.exports.loop = function () {
     console.log('Builders: ' + builders.length);
 
     for (var name in Game.rooms) {
-        console.log('Room "'+name+'" has '+Game.rooms[name].energyAvailable+' energy');
+        console.log('Room "'+name+'" has ' + Game.rooms[name].energyAvailable + ' energy');
     }
 
     if (harvesters.length < 2) {
         var newName = 'Harvester' + Game.time;
         console.log('Spawning new harvester: ' + newName);
-        Game.spawns['Base'].spawnCreep([WORK,CARRY,MOVE], newName,
-            {memory: {role: 'harvester'}});
+        if (Game.rooms[name].energyAvailable <= 300) {
+            Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
+                        {memory: {role: 'harvester'}});
+        }
+        else {
+            Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
+                        {memory: {role: 'harvester'}});
+        }
     }
 
     if (upgraders.length < 2) {
