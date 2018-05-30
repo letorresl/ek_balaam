@@ -15,7 +15,7 @@ module.exports.loop = function () {
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
 
-    var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgraders');
+    var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     console.log('Upgraders: ' + upgraders.length);
 
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
