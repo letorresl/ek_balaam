@@ -38,14 +38,14 @@ module.exports.loop = function () {
         }
     }
 
-    if (upgraders.length < 2) {
+    if (upgraders.length < 6) {
         var newName = 'Upgrader' + Game.time;
         console.log('Spawning new upgrader: ' + newName);
         if (Game.rooms[name].energyAvailable > 300 && upgraders.length < 6) {
             Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
                         {memory: {role: 'upgrader'}});
         }
-        else {
+        if (upgraders.length < 2) {
             Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
                         {memory: {role: 'upgrader'}});
         }
