@@ -26,37 +26,51 @@ module.exports.loop = function () {
         console.log('Room "'+name+'" has ' + Game.rooms[name].energyAvailable + ' energy');
     }
 
-    if (harvesters.length < 4) {
-        var newName = 'Harvester' + Game.time;
-        console.log('Spawning new harvester: ' + newName);
-        if (Game.rooms[name].energyAvailable <= 300) {
-            Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
-                        {memory: {role: 'harvester'}});
+    if (harvesters.length < 2) {
+        if (Game.rooms[name].energyAvailable <= 300 && harvesters.length == 0) {
+	    	var newName = 'Recolector' + Game.time;
+		    console.log('Spawning new harvester: ' + newName);
+		    Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
+			    {memory: {role: 'harvester'}});
         }
         else {
+	    	var newName = 'Recolector' + Game.time;
+		    console.log('Spawning new harvester: ' + newName);
             Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
-                        {memory: {role: 'harvester'}});
+                {memory: {role: 'harvester'}});
         }
     }
 
-    if (upgraders.length < 6 && Game.rooms[name].energyAvailable > 300) {
-        var newName = 'Upgrader' + Game.time;
-        console.log('Spawning new upgrader: ' + newName);
-        Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
-                    {memory: {role: 'upgrader'}});
-    }
-    if (upgraders.length < 2 && Game.rooms[name].energyAvailable <= 300) {
-        var newName = 'Upgrader' + Game.time;
-        console.log('Spawning new upgrader: ' + newName);
-        Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
-                    {memory: {role: 'upgrader'}});
+    if (upgraders.length < 4 && ) {
+        if (Game.rooms[name].energyAvailable < 300 && upgraders.length < 1) {
+            var newName = 'Actualizador' + Game.time;
+            console.log('Spawning new upgrader: ' + newName);
+            Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
+                        {memory: {role: 'upgrader'}});
+        }
+        else {
+            var newName = 'Actualizador' + Game.time;
+            console.log('Spawning new upgrader: ' + newName);
+            Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
+                        {memory: {role: 'upgrader'}});
+        }
     }
 
-    if (builders.length < 4) {
-        var newName = 'Builder' + Game.time;
-        console.log('Spawning new builder: ' + newName);
-        Game.spawns['Base'].spawnCreep([WORK,CARRY,MOVE], newName,
-            {memory: {role: 'builder'}});
+
+    if (builders.length < 2) {
+        if (Game.rooms[name].energyAvailable < 300 && builders.length < 1) {
+            var newName = 'Constructor' + Game.time;
+            console.log('Spawning new builder: ' + newName);
+            Game.spawns['Base'].spawnCreep([WORK,CARRY,MOVE], newName,
+                {memory: {role: 'builder'}});
+        }
+        else {
+            var newName = 'Constructor' + Game.time;
+            console.log('Spawning new builder: ' + newName);
+            Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY,MOVE], newName,
+                {memory: {role: 'builder'}});
+        }
+
     }
 
     if(Game.spawns['Base'].spawning) {
