@@ -41,7 +41,7 @@ module.exports.loop = function () {
         }
     }
 
-    if (upgraders.length < 4 && ) {
+    if (upgraders.length < 4) {
         if (Game.rooms[name].energyAvailable < 300 && upgraders.length < 1) {
             var newName = 'Actualizador' + Game.time;
             console.log('Spawning new upgrader: ' + newName);
