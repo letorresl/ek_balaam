@@ -5,11 +5,11 @@ var roleHarvester = {
         
         if (creep.memory.storing && creep.carry.energy == 0) {
             creep.memory.storing = false;
-            creep.say('Recolectando');
+            creep.say('Recolectar');
         }
         if (!creep.memory.storing && creep.carry.energy == creep.carryCapacity) {
             creep.memory.storing = true;
-            creep.say('Almacenando');
+            creep.say('Almacenar');
         }
         
         if (creep.memory.storing) {
