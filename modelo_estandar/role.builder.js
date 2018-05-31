@@ -22,7 +22,10 @@ var roleBuilder = {
             else {
                 /** Reparacion de estructuras dañadas **/
 	            var closestDamagedStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-	                filter: (structure) => structure.hits < 10000 /*structure.hitsMax*/
+	                filter: (structure) => return (structure.structureType == STRUCTURE_WALL ||
+                                                   structure.structureType == STRUCTURE_RAMPART) && 
+                    structure.hits < Math.min(structure.hitsMax, 10000); /*structure.hitsMax*/
+                    
 	            });
 	            if(closestDamagedStructure) {
 	                if (creep.repair(closestDamagedStructure) == ERR_NOT_IN_RANGE) {
