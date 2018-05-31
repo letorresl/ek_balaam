@@ -19,7 +19,7 @@ var roleBuilder = {
 	        });
 	        if(closestDamagedStructure) {
 	            if (creep.repair(closestDamagedStructure) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                    creep.moveTo(closestDamagedStructure, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
 	        }
 
