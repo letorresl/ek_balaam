@@ -19,16 +19,17 @@ var roleBuilder = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
-
-            /** Reparacion de estructuras dañadas **/
-	        var closestDamagedStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-	            filter: (structure) => structure.hits < 100000 /*structure.hitsMax*/
-	        });
-	        if(closestDamagedStructure) {
-	            if (creep.repair(closestDamagedStructure) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closestDamagedStructure, {visualizePathStyle: {stroke: '#ffffff'}});
-                }
-	        }
+            else {
+                /** Reparacion de estructuras dañadas **/
+	            var closestDamagedStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+	                filter: (structure) => structure.hits < 100000 /*structure.hitsMax*/
+	            });
+	            if(closestDamagedStructure) {
+	                if (creep.repair(closestDamagedStructure) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(closestDamagedStructure, {visualizePathStyle: {stroke: '#ffffff'}});
+                    }
+	            }
+            }
         }
         else {
             var sources = creep.room.find(FIND_SOURCES);
