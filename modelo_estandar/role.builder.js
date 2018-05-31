@@ -15,10 +15,12 @@ var roleBuilder = {
         if(creep.memory.building) {
             /** Reparacion de estructuras dañadas **/
 	        var closestDamagedStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-	            filter: (structure) => structure.hits < structure.hitsMax && structure.hits < 1000
+	            filter: (structure) => structure.hits < structure.hits < 1000
 	        });
 	        if(closestDamagedStructure) {
-	            creep.repair(closestDamagedStructure);
+	            if (creep.repair(closestDamagedStructure) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                }
 	        }
 
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
