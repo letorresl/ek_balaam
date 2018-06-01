@@ -28,12 +28,22 @@ var roleHarvester = {
             }
         }
         else {
-            var sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            var source = creep.pos.findClosest(FIND_SOURCES, {
+                filter: function(source){
+                    return source.memory.workers < 2; //Access this sources memory and if this source has less then 2 workers return this source
+                }
+            });
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
     }
 };
+
+
+if(source){ //If a source was found
+    creep.moveTo(source);
+    creep.harvest(source);
+
 
 module.exports = roleHarvester;

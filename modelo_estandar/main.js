@@ -2,8 +2,11 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var towerAI = require('tower.ai');
+var sourceManager = require('source.manager');
 
 module.exports.loop = function () {
+
+    sourceManager.run();
 
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
