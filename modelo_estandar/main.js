@@ -51,7 +51,7 @@ module.exports.loop = function () {
             Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
                         {memory: {role: 'upgrader'}});
         }
-        else {
+        else if (harvesters.length >= 2) {
             var newName = 'Actualizador' + Game.time;
             console.log('Spawning new upgrader: ' + newName);
             Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
@@ -60,7 +60,7 @@ module.exports.loop = function () {
     }
 
 
-    if (builders.length < 2) {
+    if (builders.length < 2 && harvesters.length >= 2) {
         if (Game.rooms[name].energyAvailable < 300 && builders.length < 1) {
             var newName = 'Constructor' + Game.time;
             console.log('Spawning new builder: ' + newName);
