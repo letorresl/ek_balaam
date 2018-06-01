@@ -38,6 +38,7 @@ var roleHarvester = {
                 }
             });
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.say('Me dirijo a ' + source.id);
                 creep.memory.sourceId = source.id;
                 source.memory.workers = source.memory.workers + 1;
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
