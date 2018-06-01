@@ -25,6 +25,7 @@ var sourceManager = {
                 }
             }
         }
+    }
 };
 
 module.exports = sourceManager;
