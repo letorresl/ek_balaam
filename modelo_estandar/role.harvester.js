@@ -12,6 +12,7 @@ var roleHarvester = {
             if (creep.memory.sourceId) {
                 var source = Game.getObjectById(creep.memory.sourceId);
                 source.memory.workers = source.memory.workers - 1;
+                creep.memory.sourceId = -1;
             }
             creep.say('Almacenar');
         }
