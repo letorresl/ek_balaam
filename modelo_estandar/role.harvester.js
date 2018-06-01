@@ -40,10 +40,4 @@ var roleHarvester = {
     }
 };
 
-
-if(source){ //If a source was found
-    creep.moveTo(source);
-    creep.harvest(source);
-
-
 module.exports = roleHarvester;
