@@ -89,7 +89,7 @@ module.exports.loop = function () {
     var tower = Game.getObjectById('TOWER_ID');
 
     if (tower) {
-	towerAI.run(tower);
+	    towerAI.run(tower);
     }
 
 

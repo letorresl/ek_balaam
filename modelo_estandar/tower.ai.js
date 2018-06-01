@@ -16,3 +16,5 @@ var towerAI = {
 	}
     }
 };
+
+module.exports = towerAI;
