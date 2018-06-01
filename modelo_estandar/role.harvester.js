@@ -28,7 +28,7 @@ var roleHarvester = {
             }
         }
         else {
-            var source = creep.pos.findClosest(FIND_SOURCES, {
+            var source = creep.pos.findClosestByPath(FIND_SOURCES, {
                 filter: function(source){
                     return source.memory.workers < 2; //Access this sources memory and if this source has less then 2 workers return this source
                 }
