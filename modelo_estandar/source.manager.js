@@ -21,7 +21,7 @@ var sourceManager = {
                 var sources = room.find(FIND_SOURCES);//Find all sources in the current room
                 for(var i in sources){
                     var source = sources[i];
-                    source.memory = this.memory.sources[source.id]; //Set the shortcut
+                    source.memory = room.memory.sources[source.id]; //Set the shortcut
                 }
             }
         }
