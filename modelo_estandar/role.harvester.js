@@ -9,6 +9,10 @@ var roleHarvester = {
         }
         if (!creep.memory.storing && creep.carry.energy == creep.carryCapacity) {
             creep.memory.storing = true;
+            if (creep.memory.sourceId) {
+                var source = Game.getObjectById(creep.memory.sourceId);
+                source.memory.workers = source.memory.workers - 1;
+            }
             creep.say('Almacenar');
         }
         
@@ -34,6 +38,7 @@ var roleHarvester = {
                 }
             });
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.memory.sourceId = source.id;
                 source.memory.workers = source.memory.workers + 1;
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
