@@ -24,8 +24,9 @@ var roleBuilder = {
 	            var closestDamagedStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 	                filter: (structure) => {
                         return (structure.structureType == STRUCTURE_WALL ||
-                                structure.structureType == STRUCTURE_RAMPART) &&
-                                structure.hits < Math.min(structure.hitsMax, 10000); /*structure.hitsMax*/
+                                structure.structureType == STRUCTURE_RAMPART ||
+                                structure.structureType == STRUCTURE_CONTAINER
+                               ) && structure.hits < Math.min(structure.hitsMax, 10000); /*structure.hitsMax*/
                     }
                     
 	            });
