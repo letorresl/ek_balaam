@@ -14,12 +14,13 @@ var spawnManager = {
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         console.log('Builders: ' + builders.length);
 
-        for (var name in Game.rooms) { 
-            console.log('Room "'+name+'" has ' + Game.rooms[name].energyAvailable + ' energy'); 
+        for (var name in Game.spawns) {
+            var nombre = Game.spawns[name].room.name
+            console.log('Room "'+ nombre +'" has ' + Game.rooms[nombre].energyAvailable + ' energy'); 
         } 
 
         if (harvesters.length < 2) {
-            if (Game.rooms[name].energyAvailable <= 300 && harvesters.length == 0) {
+            if (Game.rooms[nombre].energyAvailable <= 300 && harvesters.length == 0) {
 	        	var newName = 'Recolector' + Game.time;
 		        console.log('Spawning new harvester: ' + newName);
 		        Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
@@ -36,7 +37,7 @@ var spawnManager = {
         if (
             cargos.length < 2 &&
             harvesters.length >= 2 &&
-            Game.rooms[name].energyAvailable >= 300
+            Game.rooms[nombre].energyAvailable >= 300
         ) {
             	var newName = 'Cargador' + Game.time;
 	            console.log('Generando nuevo cargo: ' + newName);
@@ -45,7 +46,7 @@ var spawnManager = {
         }
 
         if (upgraders.length < 2) {
-            if (Game.rooms[name].energyAvailable < 300 && upgraders.length < 1) {
+            if (Game.rooms[nombre].energyAvailable < 300 && upgraders.length < 1) {
                 var newName = 'Actualizador' + Game.time;
                 console.log('Spawning new upgrader: ' + newName);
                 Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
@@ -61,7 +62,7 @@ var spawnManager = {
 
 
         if (builders.length < 2 && harvesters.length >= 2) {
-            if (Game.rooms[name].energyAvailable < 300 && builders.length < 1) {
+            if (Game.rooms[nombre].energyAvailable < 300 && builders.length < 1) {
                 var newName = 'Constructor' + Game.time;
                 console.log('Spawning new builder: ' + newName);
                 Game.spawns['Base'].spawnCreep([WORK,CARRY,MOVE], newName,
