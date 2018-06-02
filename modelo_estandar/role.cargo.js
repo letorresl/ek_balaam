@@ -39,7 +39,7 @@ var roleCargo = {
                 }
             );
 
-            var targetImportante = targets.filter(
+            var targetImportante = targetStructures.filter(
                 function (target) {
                     return (
                         target.structureType == STRUCTURE_TOWER
@@ -47,7 +47,7 @@ var roleCargo = {
                 }
             );
 
-            var targetSecundario = targets.filter(
+            var targetSecundario = targetStructures.filter(
                 function (target) {
                     return (
                         target.structureType == STRUCTURE_CONTAINER
