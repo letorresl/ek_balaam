@@ -53,7 +53,7 @@ var roleHarvester = {
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
             else {
-                if (creep.memory.sourceId < 0 && source) {
+                if (source) {
                     creep.memory.sourceId = source.id;
                 }
             }
