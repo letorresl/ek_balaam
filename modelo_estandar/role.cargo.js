@@ -41,7 +41,7 @@ var roleCargo = {
                     return (creep.memory.role == 'harvester' && creep.carry.energy > 0);
                 }
             });
-            if (harvester.transfer(creep, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+            if (harvester !== null && harvester.transfer(creep, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(harvester, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
