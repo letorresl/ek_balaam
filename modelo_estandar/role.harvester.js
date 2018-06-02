@@ -49,13 +49,13 @@ var roleHarvester = {
                     return source.memory.workers < 2; //Access this sources memory and if this source has less then 2 workers return this source
                 }
             });
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE && creep.carry.energy < creep.carryCapacity) {
-                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
-            else {
-                if (source) {
-                    creep.memory.sourceId = source.id;
+            if  (creep.carry.energy < creep.carryCapacity) {
+                if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
                 }
+                else if (source) {
+                    creep.memory.sourceId = source.id;
+                }    
             }
         }
     }
