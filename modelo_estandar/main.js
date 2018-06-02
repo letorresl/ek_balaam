@@ -4,6 +4,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var towerAI = require('tower.ai');
 var sourceManager = require('source.manager');
+var spawnManager = require('spawn.manager');
 
 module.exports.loop = function () {
 
