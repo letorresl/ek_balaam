@@ -38,10 +38,10 @@ var roleCargo = {
         else {
             var harvester = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
                 filter: function(creep){
-                    return creep.memory.role == 'harvester';
+                    return (creep.memory.role == 'harvester' && creep.carry.energy > 0);
                 }
             });
-            if (creep.withdraw(harvester) == ERR_NOT_IN_RANGE) {
+            if (harvester.transfer(creep, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(harvester, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
