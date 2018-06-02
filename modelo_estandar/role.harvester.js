@@ -10,7 +10,7 @@ var roleHarvester = {
             creep.say('Recolectar');
         }
         if (!creep.memory.storing &&
-            creep.carry.energy == creep.carryCapacity
+            creep.carry.energy == creep.carryCapacity &&
             cargos.length == 0
             ) {
             creep.memory.storing = true;
