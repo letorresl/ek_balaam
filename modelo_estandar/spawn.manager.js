@@ -14,6 +14,9 @@ var spawnManager = {
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         console.log('Builders: ' + builders.length);
 
+        for (var name in Game.rooms) { 
+            console.log('Room "'+name+'" has ' + Game.rooms[name].energyAvailable + ' energy'); 
+        } 
 
         if (harvesters.length < 2) {
             if (Game.rooms[name].energyAvailable <= 300 && harvesters.length == 0) {
@@ -30,16 +33,18 @@ var spawnManager = {
             }
         }
 
-        if (cargos.length < 2 &&
+        if (
+            cargos.length < 2 &&
             harvesters.length >= 2 &&
-            Game.rooms[name].energyAvailable >= 300) {
+            Game.rooms[name].energyAvailable >= 300
+        ) {
             	var newName = 'Cargador' + Game.time;
 	            console.log('Generando nuevo cargo: ' + newName);
                 Game.spawns['Base'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
                     {memory: {role: 'cargo'}});
         }
 
-        if (upgraders.length < 3) {
+        if (upgraders.length < 2) {
             if (Game.rooms[name].energyAvailable < 300 && upgraders.length < 1) {
                 var newName = 'Actualizador' + Game.time;
                 console.log('Spawning new upgrader: ' + newName);

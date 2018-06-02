@@ -21,10 +21,6 @@ module.exports.loop = function () {
     /* administra la logica del spawning */
     spawnManager.run();
 
-    for (var name in Game.rooms) {
-        console.log('Room "'+name+'" has ' + Game.rooms[name].energyAvailable + ' energy');
-    }
-
     var tower = Game.getObjectById('TOWER_ID');
 
     if (tower) {
