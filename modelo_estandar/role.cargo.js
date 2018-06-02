@@ -13,7 +13,7 @@ var roleCargo = {
         }
         
         if (creep.memory.storing) {
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            var targetStructures = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (
                         (
@@ -29,7 +29,45 @@ var roleCargo = {
                     );
                 }
             });
-            if (targets.length > 0) {
+
+            var targetVital = targetStructures.filter(
+                function (target) {
+                    return (
+                        target.structureType == STRUCTURE_SPAWN ||
+                        target.structureType == STRUCTURE_EXTENSION
+                    );
+                }
+            );
+
+            var targetImportante = targets.filter(
+                function (target) {
+                    return (
+                        target.structureType == STRUCTURE_TOWER
+                    );
+                }
+            );
+
+            var targetSecundario = targets.filter(
+                function (target) {
+                    return (
+                        target.structureType == STRUCTURE_CONTAINER
+                    );
+                }
+            );
+
+            if (targetVital.length > 0) {
+                targets = targetVital
+            }
+            else if (targetImportante.length > 0) {
+                targets = targetImportante
+            }
+            else if (targetSecundario.length > 0) {
+                targets = targetSecundario
+            }
+
+            var target = creep.pos.findClosestByRange(targets)
+
+            if (target) {
                 if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
