@@ -76,7 +76,7 @@ var roleCargo = {
         else {
             var harvester = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
                 filter: function(creep){
-                    return (creep.memory.role == 'harvester' && creep.carry.energy > 0);
+                    return (creep.memory.role == 'harvester' && creep.carry.energy >= 50);
                 }
             });
             if (harvester !== null && harvester.transfer(creep, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
