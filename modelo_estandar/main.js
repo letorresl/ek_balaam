@@ -20,6 +20,9 @@ module.exports.loop = function () {
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
 
+    var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'cargo');
+    console.log('Cargos: ' + cargos.length);
+
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     console.log('Upgraders: ' + upgraders.length);
 
@@ -43,6 +46,15 @@ module.exports.loop = function () {
             Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE], newName,
                 {memory: {role: 'harvester', sourceId: -1}});
         }
+    }
+
+    if (cargos.length < 2 &&
+        harvesters.length >= 2 &&
+        Game.rooms[name].energyAvailable >= 300) {
+        	var newName = 'Cargador' + Game.time;
+	        console.log('Generando nuevo cargo: ' + newName);
+            Game.spawns['Base'].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName,
+                {memory: {role: 'cargo'}});
     }
 
     if (upgraders.length < 3) {

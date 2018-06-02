@@ -3,11 +3,16 @@ var roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
         
+        var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'cargo');
+        
         if (creep.memory.storing && creep.carry.energy == 0) {
             creep.memory.storing = false;
             creep.say('Recolectar');
         }
-        if (!creep.memory.storing && creep.carry.energy == creep.carryCapacity) {
+        if (!creep.memory.storing &&
+            creep.carry.energy == creep.carryCapacity
+            cargos.length == 0
+            ) {
             creep.memory.storing = true;
             if (creep.memory.sourceId) {
                 creep.memory.sourceId = -1;
