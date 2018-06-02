@@ -17,12 +17,13 @@ var sourceManager = {
                     //for example you could add a worker counter:
                     source.memory.workers = 0;
                 }
-            }else{ //The memory already exists so lets add a shortcut to the sources its memory
+            } else{ //The memory already exists so lets add a shortcut to the sources its memory
                 var sources = room.find(FIND_SOURCES);//Find all sources in the current room
                 for(var i in sources){
                     var source = sources[i];
                     source.memory = room.memory.sources[source.id]; //Set the shortcut
                     var workers = _.filter(Game.creeps, (creep) => creep.memory.sourceId == source.id);
+                    source.memory.workers = workers.length
                 }
             }
         }
