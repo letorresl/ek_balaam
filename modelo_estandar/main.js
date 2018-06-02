@@ -73,7 +73,7 @@ module.exports.loop = function () {
     }
 
 
-    if (builders.length < 3 && harvesters.length >= 2) {
+    if (builders.length < 2 && harvesters.length >= 2) {
         if (Game.rooms[name].energyAvailable < 300 && builders.length < 1) {
             var newName = 'Constructor' + Game.time;
             console.log('Spawning new builder: ' + newName);
