@@ -60,7 +60,6 @@ var roleBuilder = {
                 });*/
 
                 var fuente = creep.pos.find(FIND_SOURCES)[0];
-                }
 
                 if(creep.harvest(fuente) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(fuente, {visualizePathStyle: {stroke: '#ffaa00'}});
