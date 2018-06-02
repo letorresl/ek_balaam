@@ -46,7 +46,7 @@ var roleBuilder = {
             });
 
             /* Si existe un contenedor en el room, entonces retirar energia de ahi */
-            if (contenedorCercano) {
+            if (contenedorCercano && contenedorCercano.store[RESOURCE_ENERGY] > 0) {
                 if(creep.withdraw(contenedorCercano, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(contenedorCercano, {visualizePathStyle: {stroke: '#ffaa00'}});
                 }
