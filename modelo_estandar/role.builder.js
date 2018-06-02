@@ -53,11 +53,15 @@ var roleBuilder = {
             }
             /* De lo contrario, extraerla de una fuente cercana */
             else {
-                var fuente = creep.pos.findClosestByRange(FIND_SOURCES, {
+                /* var fuente = creep.pos.findClosestByRange(FIND_SOURCES, {
                     filter: function(source){
                         return source.memory.workers < 2;
                     }
-                });
+                });*/
+
+                var fuente = creep.pos.find(FIND_SOURCES)[0];
+                }
+
                 if(creep.harvest(fuente) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(fuente, {visualizePathStyle: {stroke: '#ffaa00'}});
                 }
