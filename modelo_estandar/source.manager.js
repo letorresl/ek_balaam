@@ -24,7 +24,6 @@ var sourceManager = {
                     source.memory = room.memory.sources[source.id]; //Set the shortcut
                     var workers = _.filter(Game.creeps, (creep) => creep.memory.sourceId == source.id);
                 }
-                console.log('Fuente: ' + source + ', Workers: ' + workers.length);
             }
         }
     }
