@@ -36,9 +36,9 @@ var roleCargo = {
             }
         }
         else {
-            var harvester = creep.pos.findClosestByPath(Game.creeps, {
-                filter: function(cercano){
-                    return cercano.memory.role == 'harvester';
+            var harvester = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
+                filter: function(creep){
+                    return creep.memory.role == 'harvester';
                 }
             });
             if (creep.withdraw(harvester) == ERR_NOT_IN_RANGE) {
