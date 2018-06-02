@@ -79,8 +79,12 @@ var roleCargo = {
                     return (creep.memory.role == 'harvester' && creep.carry.energy >= 50);
                 }
             });
-            if (harvester !== null && harvester.transfer(creep, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(harvester, {visualizePathStyle: {stroke: '#ffaa00'}});
+            if (harvester) {
+                if (harvester.transfer(creep, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(harvester, {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
+            } else {
+                creep.memory.storing = true;
             }
         }
     }
