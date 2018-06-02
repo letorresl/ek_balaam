@@ -20,6 +20,7 @@ var roleHarvester = {
             creep.say('Almacenar');
         }
         
+        /* Almacenamiento */
         if (creep.memory.storing) {
             var targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
@@ -43,6 +44,7 @@ var roleHarvester = {
                 }
             }
         }
+        /* Recoleccion de energia */
         else {
             var source = creep.pos.findClosestByPath(FIND_SOURCES, {
                 filter: function(source){

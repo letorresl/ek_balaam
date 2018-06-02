@@ -12,8 +12,11 @@ var roleBuilder = {
             creep.say('build');
         }
 
+        /* Construccion */
         if(creep.memory.building) {
+            /* Verificar si existen estructuras pendientes de construir */
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+
             if(targets.length) {
                 if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
@@ -35,7 +38,9 @@ var roleBuilder = {
 	            }
             }
         }
+        /* Recoleccion de energia */
         else {
+            /* Busqueda de contenedor cercano */
             var contenedorCercano = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: function(estructura){
                     return (

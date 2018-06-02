@@ -14,9 +14,6 @@ var spawnManager = {
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         console.log('Builders: ' + builders.length);
 
-        for (var name in Game.rooms) {
-            console.log('Room "'+name+'" has ' + Game.rooms[name].energyAvailable + ' energy');
-        }
 
         if (harvesters.length < 2) {
             if (Game.rooms[name].energyAvailable <= 300 && harvesters.length == 0) {
