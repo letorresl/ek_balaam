@@ -10,8 +10,6 @@ var roleHarvester = {
         if (!creep.memory.storing && creep.carry.energy == creep.carryCapacity) {
             creep.memory.storing = true;
             if (creep.memory.sourceId) {
-                var source = Game.getObjectById(creep.memory.sourceId);
-                source.memory.workers = source.memory.workers - 1;
                 creep.memory.sourceId = -1;
             }
             creep.say('Almacenar');
@@ -52,7 +50,6 @@ var roleHarvester = {
             else {
                 if (creep.memory.sourceId < 0 && source) {
                     creep.memory.sourceId = source.id;
-                    source.memory.workers = source.memory.workers + 1;   
                 }
             }
         }
