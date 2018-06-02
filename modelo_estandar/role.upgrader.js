@@ -18,9 +18,34 @@ var roleUpgrader = {
             }
         }
         else {
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            var contenedorCercano = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: function(estructura){
+                    return (
+                        estructura.structureType == STRUCTURE_CONTAINER &&
+                        estructura.store[RESOURCE_ENERGY] > 0
+                    );
+                }
+            });
+
+            /* Si existe un contenedor en el room, entonces retirar energia de ahi */
+            if (contenedorCercano && contenedorCercano.store[RESOURCE_ENERGY] > 0) {
+                if(creep.withdraw(contenedorCercano, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(contenedorCercano, {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
+            }
+            /* De lo contrario, extraerla de una fuente cercana */
+            else {
+                /* var fuente = creep.pos.findClosestByRange(FIND_SOURCES, {
+                    filter: function(source){
+                        return source.memory.workers < 2;
+                    }
+                });*/
+
+                var fuente = creep.room.find(FIND_SOURCES)[0];
+
+                if(creep.harvest(fuente) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(fuente, {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
             }
         }
     }
