@@ -8,7 +8,24 @@ var roleBuilder = {
             creep.say('harvest');
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
+            var damagedStructures = creep.room.find(FIND_STRUCTURES, {
+                filter: function(estructura){
+                    return estructura.hits < estructura.hitsMax;
+                }
+            });
+
+            damagedStructures.sort(
+                function (eA, eB) {
+                    hitsA = eA.hits / eA.hitsMax;
+                    hitsB = eB.hits / eB.hitsMax;
+                    return (
+                        hitsA - hitsB
+                    );
+                }
+            )
+
             creep.memory.building = true;
+            creep.memory.mostDamaged = damagedStructures[0];
             creep.say('build');
         }
 
@@ -22,30 +39,12 @@ var roleBuilder = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
-            else {
-                /** Reparacion de estructuras dañadas **/
-	            var damagedStructures = creep.room.find(FIND_STRUCTURES, {
-                    filter: function(estructura){
-                        return estructura.hits < estructura.hitsMax;
-                    }
-                });
-
-                damagedStructures.sort(
-                    function (eA, eB) {
-                        hitsA = eA.hits / eA.hitsMax;
-                        hitsB = eB.hits / eB.hitsMax;
-                        return (
-                            hitsA - hitsB
-                        );
-                    }
-                )
-
-	            if(damagedStructures.length > 0) {
-                    creep.say(damagedStructures[0].hits)
-	                if (creep.repair(damagedStructures[0]) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(damagedStructures[0], {visualizePathStyle: {stroke: '#ffffff'}});
-                    }
-	            }
+            /** Reparacion de estructuras dañadas **/
+            else if (creep.memory.mostDamaged) {
+                creep.say(creep.memory.mostDamaged.hits)
+                if (creep.repair(creep.memory.mostDamaged) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.memory.mostDamaged, {visualizePathStyle: {stroke: '#ffffff'}});
+                }
             }
         }
         /* Recoleccion de energia */
