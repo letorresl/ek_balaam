@@ -49,7 +49,7 @@ var roleSoldier = {
         /* si existe bandera de ataque */
         else if (attack_flag) {
             if (creep.pos.roomName === attack_flag.pos.roomName) {
-                let hostile_spawn = creep.room.find(FIND_STRUCTURES, {
+                let hostile_spawn = creep.room.find(FIND_HOSTILE_SPAWN, {
                     filter: (structure) => {
                         return (
                             structure.structureType == STRUCTURE_CONTROLLER
@@ -63,12 +63,6 @@ var roleSoldier = {
             }
             else {
                 creep.moveTo(attack_flag);
-            }
-        }
-        /* si existe un spawn hostil y se tiene CLAIM body parts */
-        else if(creep.room.controller && !creep.room.controller.my && creep.getActiveBodyparts(CLAIM) > 0) {
-            if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.controller);
             }
         }
         /* si no encuentra hostilidad ni bandera, regresar a base flag */

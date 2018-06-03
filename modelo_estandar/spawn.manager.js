@@ -17,6 +17,9 @@ var spawnManager = {
         var soldiers = _.filter(Game.creeps, (creep) => creep.memory.role == 'soldier');
         console.log('Soldiers: ' + soldiers.length);
 
+        var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimers');
+        console.log('Claimers: ' + claimers.length);
+
         for (var name in Game.spawns) {
             var nombre = Game.spawns[name].room.name
             console.log('Room "'+ nombre +'" has ' + Game.rooms[nombre].energyAvailable + ' energy'); 
@@ -81,12 +84,38 @@ var spawnManager = {
         }
 
 
-        if (builders.length >= 2 && harvesters.length >= 2 && upgraders.length >= 2 && cargos.length >= 2) {
+        if (
+            builders.length >= 2 &&
+            harvesters.length >= 2 &&
+            upgraders.length >= 2 &&
+            cargos.length >= 2
+        ) {
             if (Game.rooms[nombre].energyAvailable >= 600 && soldiers.length < 1) {
-                var newName = 'Claimer' + Game.time;
-                console.log('Spawning new claimer: ' + newName);
-                Game.spawns['Base'].spawnCreep([ATTACK,CLAIM,MOVE, MOVE], newName,
+                var newName = 'Soldier' + Game.time;
+                console.log('Spawning new Soldier: ' + newName);
+                Game.spawns['Base'].spawnCreep([
+                    TOUGH, TOUGH, TOUGH,
+                    ATTACK, ATTACK, ATTACK, ATTACK,
+                    MOVE,   MOVE,   MOVE,   MOVE,   MOVE, MOVE, MOVE], newName,
                     {memory: {role: 'soldier'}});
+            }
+        }
+
+        if (
+            builders.length >= 2 &&
+            harvesters.length >= 2 &&
+            upgraders.length >= 2 &&
+            cargos.length >= 2 &&
+            soldiers.length >= 1
+        ) {
+            if (Game.rooms[nombre].energyAvailable >= 600 && claimers.length < 1) {
+                var newName = 'Soldier' + Game.time;
+                console.log('Spawning new Claimer: ' + newName);
+                Game.spawns['Base'].spawnCreep([
+                    ATTACK,
+                    CLAIM,
+                    MOVE, MOVE], newName,
+                    {memory: {role: 'claimer'}});
             }
         }
 

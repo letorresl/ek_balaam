@@ -3,6 +3,7 @@ var roleCargo     = require('role.cargo');
 var roleUpgrader  = require('role.upgrader');
 var roleBuilder   = require('role.builder');
 var roleSoldier   = require('role.soldier');
+var roleClaimer   = require('role.claimer');
 var towerAI = require('tower.ai');
 var sourceManager = require('source.manager');
 var spawnManager  = require('spawn.manager');
@@ -46,6 +47,10 @@ module.exports.loop = function () {
 
         if (creep.memory.role == 'soldier') {
             roleSoldier.run(creep);
+        }
+
+        if (creep.memory.role == 'claimer') {
+            roleClaimer.run(creep);
         }
     }
 }
