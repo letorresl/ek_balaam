@@ -57,13 +57,16 @@ var roleCargo = {
             );
 
             if (targetVital.length > 0) {
-                targets = targetVital
+                targets = targetVital;
             }
             else if (targetImportante.length > 0) {
-                targets = targetImportante
+                targets = targetImportante;
             }
             else if (targetSecundario.length > 0) {
-                targets = targetSecundario
+                targets = targetSecundario;
+            }
+            else {
+                targets = null;
             }
 
             var target = creep.pos.findClosestByRange(targets)
