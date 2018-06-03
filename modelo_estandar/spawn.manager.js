@@ -61,7 +61,7 @@ var spawnManager = {
         }
 
 
-        if (builders.length < 2 && harvesters.length >= 2) {
+        if (builders.length < 3 && harvesters.length >= 2) {
             if (Game.rooms[nombre].energyAvailable < 300 && builders.length < 1) {
                 var newName = 'Constructor' + Game.time;
                 console.log('Spawning new builder: ' + newName);
@@ -71,7 +71,7 @@ var spawnManager = {
             else {
                 var newName = 'Constructor' + Game.time;
                 console.log('Spawning new builder: ' + newName);
-                Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE], newName,
+                Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
                     {memory: {role: 'builder'}});
             }
 
