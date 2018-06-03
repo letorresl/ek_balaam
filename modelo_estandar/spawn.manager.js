@@ -112,8 +112,8 @@ var spawnManager = {
             soldiers.length >= 1
         ) {
             if (Game.rooms[nombre].energyAvailable >= 600 && healers.length < 1) {
-                var newName = 'Soldier' + Game.time;
-                console.log('Spawning new Soldier: ' + newName);
+                var newName = 'Healer' + Game.time;
+                console.log('Spawning new Healer: ' + newName);
                 Game.spawns['Base'].spawnCreep([
                     TOUGH, TOUGH, TOUGH,
                     HEAL, HEAL,
@@ -131,7 +131,7 @@ var spawnManager = {
             healers.length >= 1
         ) {
             if (Game.rooms[nombre].energyAvailable >= 600 && claimers.length < 1) {
-                var newName = 'Soldier' + Game.time;
+                var newName = 'Claimer' + Game.time;
                 console.log('Spawning new Claimer: ' + newName);
                 Game.spawns['Base'].spawnCreep([
                     ATTACK,
