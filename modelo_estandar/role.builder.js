@@ -40,8 +40,8 @@ var roleBuilder = {
                 }
             }
             /** Reparacion de estructuras dañadas **/
-            else if (creep.memory.mostDamaged) {
-                mostDamaged = Game.getObjectById(creep.memory.mostDamaged)
+            else if (Game.getObjectById(creep.memory.mostDamaged)) {
+                var mostDamaged = Game.getObjectById(creep.memory.mostDamaged);
                 creep.say(mostDamaged.hits)
                 if (creep.repair(mostDamaged) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(mostDamaged, {visualizePathStyle: {stroke: '#ffffff'}});
