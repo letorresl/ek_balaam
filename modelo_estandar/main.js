@@ -1,10 +1,11 @@
 var roleHarvester = require('role.harvester');
-var roleCargo = require('role.cargo');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
+var roleCargo     = require('role.cargo');
+var roleUpgrader  = require('role.upgrader');
+var roleBuilder   = require('role.builder');
+var roleSoldier   = require('role.soldier');
 var towerAI = require('tower.ai');
 var sourceManager = require('source.manager');
-var spawnManager = require('spawn.manager');
+var spawnManager  = require('spawn.manager');
 
 module.exports.loop = function () {
 
@@ -21,12 +22,17 @@ module.exports.loop = function () {
     /* administra la logica del spawning */
     spawnManager.run();
 
-    var tower = Game.getObjectById('TOWER_ID');
+    var torres = Game.spawns['Base'].room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return (
+                structure.structureType == STRUCTURE_TOWER
+            );
+        }
+    });
 
-    if (tower) {
+    for (var tower in torres) {
 	    towerAI.run(tower);
     }
-
 
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
@@ -44,6 +50,10 @@ module.exports.loop = function () {
 
         if (creep.memory.role == 'builder') {
             roleBuilder.run(creep);
+        }
+
+        if (creep.memory.role == 'soldier') {
+            roleSoldier.run(creep);
         }
     }
 }
