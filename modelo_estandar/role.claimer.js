@@ -10,8 +10,16 @@ var roleClaimer = {
         if (claim_flag && creep.getActiveBodyparts(CLAIM) > 0) {
                 if (creep.pos.roomName === claim_flag.pos.roomName) {
                     if(creep.room.controller && !creep.room.controller.my) {
-                        if (creep.attack(creep.room.controller) === ERR_NOT_IN_RANGE) {
-                            creep.moveTo(creep.room.controller);
+                        var resultado = creep.claimController(creep.room.controller);
+                        if (resultado == ERR_INVALID_TARGET) {
+                            if (creep.attack(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(creep.room.controller);
+                            }
+                        }
+                        else if (resultado == ERR_GCL_NOT_ENOUGH) {
+                            if (cree.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(creep.room.controller);
+                            }
                         }
                     }
                 }
