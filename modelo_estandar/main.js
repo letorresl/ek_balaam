@@ -2,6 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleCargo     = require('role.cargo');
 var roleUpgrader  = require('role.upgrader');
 var roleBuilder   = require('role.builder');
+var roleHealer   = require('role.healer');
 var roleSoldier   = require('role.soldier');
 var roleClaimer   = require('role.claimer');
 var towerAI = require('tower.ai');
@@ -43,6 +44,10 @@ module.exports.loop = function () {
 
         if (creep.memory.role == 'builder') {
             roleBuilder.run(creep);
+        }
+
+        if (creep.memory.role == 'healer') {
+            roleHealer.run(creep);
         }
 
         if (creep.memory.role == 'soldier') {

@@ -17,6 +17,9 @@ var spawnManager = {
         var soldiers = _.filter(Game.creeps, (creep) => creep.memory.role == 'soldier');
         console.log('Soldiers: ' + soldiers.length);
 
+        var healers = _.filter(Game.creeps, (creep) => creep.memory.role == 'healer');
+        console.log('Healers: ' + soldiers.length);
+
         var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimers');
         console.log('Claimers: ' + claimers.length);
 
@@ -107,6 +110,25 @@ var spawnManager = {
             upgraders.length >= 2 &&
             cargos.length >= 2 &&
             soldiers.length >= 1
+        ) {
+            if (Game.rooms[nombre].energyAvailable >= 600 && healers.length < 1) {
+                var newName = 'Soldier' + Game.time;
+                console.log('Spawning new Soldier: ' + newName);
+                Game.spawns['Base'].spawnCreep([
+                    TOUGH, TOUGH, TOUGH,
+                    HEAL, HEAL,
+                    MOVE,   MOVE,   MOVE, MOVE, MOVE], newName,
+                    {memory: {role: 'healer'}});
+            }
+        }
+
+        if (
+            builders.length >= 2 &&
+            harvesters.length >= 2 &&
+            upgraders.length >= 2 &&
+            cargos.length >= 2 &&
+            soldiers.length >= 1 &&
+            healers.length >= 1
         ) {
             if (Game.rooms[nombre].energyAvailable >= 600 && claimers.length < 1) {
                 var newName = 'Soldier' + Game.time;
