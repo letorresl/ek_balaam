@@ -22,17 +22,9 @@ module.exports.loop = function () {
     /* administra la logica del spawning */
     spawnManager.run();
 
-    var torres = Game.spawns['Base'].room.find(FIND_STRUCTURES, {
-        filter: (structure) => {
-            return (
-                structure.structureType == STRUCTURE_TOWER
-            );
-        }
-    });
+    var tower = Game.getObjectById('5b1036b83d518c25f92c0149');
 
-    for (var tower in torres) {
-	    towerAI.run(tower);
-    }
+    towerAI.run(tower);
 
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];

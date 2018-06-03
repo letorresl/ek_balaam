@@ -4,7 +4,7 @@ var towerAI = {
     run: function(tower) {
         
 	    var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-	        filter: (structure) => structure.hits < structure.hitsMax
+	        filter: (structure) => structure.hits < 2000
 	    });
 	    if(closestDamagedStructure) {
 	        tower.repair(closestDamagedStructure);

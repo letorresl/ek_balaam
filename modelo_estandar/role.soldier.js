@@ -40,7 +40,7 @@ var roleSoldier = {
                 }
             }
             else {
-                creep.moveTo(flag);
+                creep.moveTo(attack_flag);
             }
         }
         /* si existe un spawn hostil y se tiene CLAIM body parts */
@@ -51,7 +51,7 @@ var roleSoldier = {
         }
         /* si no encuentra hostilidad ni bandera, regresar a base flag */
         else if (base_flag) {
-            creep.moveTo(flag);
+            creep.moveTo(base_flag);
         }
         /* regresar a la base */
         else {
