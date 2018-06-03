@@ -25,7 +25,7 @@ var roleBuilder = {
             )
 
             creep.memory.building = true;
-            creep.memory.mostDamaged = damagedStructures[0];
+            creep.memory.mostDamaged = damagedStructures[0].id;
             creep.say('build');
         }
 
@@ -41,9 +41,10 @@ var roleBuilder = {
             }
             /** Reparacion de estructuras dañadas **/
             else if (creep.memory.mostDamaged) {
-                creep.say(creep.memory.mostDamaged.hits)
-                if (creep.repair(creep.memory.mostDamaged) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.memory.mostDamaged, {visualizePathStyle: {stroke: '#ffffff'}});
+                mostDamaged = Game.getObjectById(creep.memory.mostDamaged)
+                creep.say(mostDamaged.hits)
+                if (creep.repair(mostDamaged) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(mostDamaged, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
         }
