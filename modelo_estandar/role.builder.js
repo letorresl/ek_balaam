@@ -16,8 +16,21 @@ var roleBuilder = {
 
             damagedStructures.sort(
                 function (eA, eB) {
-                    hitsA = eA.hits / eA.hitsMax;
-                    hitsB = eB.hits / eB.hitsMax;
+                    if (eA.structureType == STRUCTURE_RAMPART) {
+                        var numeradorA = 300000000 //Considera la misma importancia que una pared
+                    }
+                    else {
+                        var numeradorA = eA.hitsMax
+                    }
+                    if (eB.structureType == STRUCTURE_RAMPART) {
+                        var numeradorB = 300000000 //Considera la misma importancia que una pared
+                    }
+                    else {
+                        var numeradorB = eB.hitsMax
+                    }
+                    
+                    hitsA = eA.hits / numeradorA;
+                    hitsB = eB.hits / numeradorB;
                     return (
                         hitsA - hitsB
                     );
