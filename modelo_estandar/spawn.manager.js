@@ -20,7 +20,7 @@ var spawnManager = {
         var healers = _.filter(Game.creeps, (creep) => creep.memory.role == 'healer');
         console.log('Healers: ' + soldiers.length);
 
-        var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimers');
+        var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
         console.log('Claimers: ' + claimers.length);
 
         for (var name in Game.spawns) {

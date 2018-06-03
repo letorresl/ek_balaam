@@ -8,10 +8,10 @@ var roleClaimer = {
         var base_flag = Game.flags.base_flag;
 
         if (claim_flag && creep.getActiveBodyparts(CLAIM) > 0) {
-                if (creep.pos.roomName === attack_flag.pos.roomName) {
+                if (creep.pos.roomName === claim_flag.pos.roomName) {
                     if(creep.room.controller && !creep.room.controller.my) {
-                        if (creep.attack(controller) === ERR_NOT_IN_RANGE) {
-                            creep.moveTo(controller);
+                        if (creep.attack(creep.room.controller) === ERR_NOT_IN_RANGE) {
+                            creep.moveTo(creep.room.controller);
                         }
                     }
                 }
