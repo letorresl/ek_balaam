@@ -49,7 +49,13 @@ var roleSoldier = {
         /* si existe bandera de ataque */
         else if (attack_flag) {
             if (creep.pos.roomName === attack_flag.pos.roomName) {
-                let hostile_spawn = creep.room.find(FIND_HOSTILE_SPAWNS)[0];
+                let hostile_spawn = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (
+                            structure.structureType == STRUCTURE_CONTROLLER
+                        );
+                    }
+                })[0];
 
                 if (creep.attack(hostile_spawn) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(hostile_spawn);
