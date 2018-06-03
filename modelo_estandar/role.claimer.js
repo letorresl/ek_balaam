@@ -5,6 +5,7 @@ var roleClaimer = {
 
 
         var claim_flag = Game.flags.claim_flag;
+        var base_flag = Game.flags.base_flag;
 
         if (claim_flag && creep.getActiveBodyparts(CLAIM) > 0) {
                 if (creep.pos.roomName === attack_flag.pos.roomName) {
