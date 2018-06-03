@@ -24,16 +24,26 @@ var roleBuilder = {
             }
             else {
                 /** Reparacion de estructuras dañadas **/
-	            var closestDamagedStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+	            var damagedStructures = creep.room.find(FIND_STRUCTURES, {
                     filter: function(estructura){
                         return estructura.hits < estructura.hitsMax;
                     }
                 });
 
-	            if(closestDamagedStructure) {
-                    creep.say(closestDamagedStructure.hits)
-	                if (creep.repair(closestDamagedStructure) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(closestDamagedStructure, {visualizePathStyle: {stroke: '#ffffff'}});
+                damagedStructures.sort(
+                    function (eA, eB) {
+                        hitsA = eA.hits / eA.hitsMax;
+                        hitsB = eB.hits / eB.hitsMax;
+                        return (
+                            hitsA - hitsB
+                        );
+                    }
+                )
+
+	            if(damagedStructures.length > 0) {
+                    creep.say(damagedStructures[0].hits)
+	                if (creep.repair(damagedStructures[0]) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(damagedStructures[0], {visualizePathStyle: {stroke: '#ffffff'}});
                     }
 	            }
             }
