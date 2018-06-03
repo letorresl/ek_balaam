@@ -28,7 +28,7 @@ var spawnManager = {
             console.log('Room "'+ nombre +'" has ' + Game.rooms[nombre].energyAvailable + ' energy'); 
         } 
 
-        if (harvesters.length < 3) {
+        if (harvesters.length < 2) {
             if (Game.rooms[nombre].energyAvailable <= 300 && harvesters.length == 0) {
 	        	var newName = 'Recolector' + Game.time;
 		        console.log('Spawning new harvester: ' + newName);
