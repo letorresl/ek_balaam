@@ -17,7 +17,7 @@ var roleClaimer = {
                             }
                         }
                         else if (resultado == ERR_GCL_NOT_ENOUGH) {
-                            if (cree.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                            if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                                 creep.moveTo(creep.room.controller);
                             }
                         }
