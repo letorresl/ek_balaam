@@ -59,7 +59,7 @@ var spawnManager = {
         }
 
         if (
-                upgraders.length < 2
+                upgraders.length < 3
         ) {
             if (Game.rooms[nombre].energyAvailable < 300 && upgraders.length < 1) {
                 var newName = 'Actualizador' + Game.time;
@@ -67,10 +67,15 @@ var spawnManager = {
                 Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
                             {memory: {role: 'upgrader'}});
             }
-            else if (harvesters.length >= 2) {
+            else if (harvesters.length >= 2 && Game.rooms[nombre].energyAvailable >= 650) {
                 var newName = 'Actualizador' + Game.time;
                 console.log('Spawning new upgrader: ' + newName);
-                Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE], newName,
+                Game.spawns['Base'].spawnCreep(
+                    [
+                        WORK, WORK, WORK,
+                        CARRY, CARRY, 
+                        MOVE, MOVE, MOVE, MOVE, MOVE
+                    ], newName,
                             {memory: {role: 'upgrader'}});
             }
         }
