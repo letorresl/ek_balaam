@@ -17,9 +17,25 @@ var roleSoldier = {
 
         var attack_flag = Game.flags.attack_flag;
         var base_flag = Game.flags.base_flag;
+        var wall_flag = Game.flags.wall_flag;
 
+        if (wall_flag) {
+            if (creep.pos === wall_flag.pos) {
+                var targetWall = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+                    filter: function(estructura){
+                        return (
+                            estructura.structureType == STRUCTURE_WALL
+                        );
+                    }
+                });
+                creep.attack(targetWall);
+            }
+            else {
+                creep.moveTo(wall_flag);
+            }
+        }
         /* si hay soldados, atacalos primero */
-        if (targetAtacante) {
+        else if (targetAtacante) {
             if (creep.attack(targetAtacante) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(targetAtacante);
             }
