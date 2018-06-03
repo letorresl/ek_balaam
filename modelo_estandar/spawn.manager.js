@@ -29,7 +29,7 @@ var spawnManager = {
             else {
 	        	var newName = 'Recolector' + Game.time;
 		        console.log('Spawning new harvester: ' + newName);
-                Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE], newName,
+                Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE], newName,
                     {memory: {role: 'harvester', sourceId: -1}});
             }
         }
@@ -41,7 +41,7 @@ var spawnManager = {
         ) {
             	var newName = 'Cargador' + Game.time;
 	            console.log('Generando nuevo cargo: ' + newName);
-                Game.spawns['Base'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
+                Game.spawns['Base'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
                     {memory: {role: 'cargo'}});
         }
 
