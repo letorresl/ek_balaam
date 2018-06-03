@@ -46,11 +46,15 @@ var spawnManager = {
         if (
             cargos.length < 2 &&
             harvesters.length >= 2 &&
-            Game.rooms[nombre].energyAvailable >= 600
+            Game.rooms[nombre].energyAvailable >= 700
         ) {
             	var newName = 'Cargador' + Game.time;
 	            console.log('Generando nuevo cargo: ' + newName);
-                Game.spawns['Base'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
+                Game.spawns['Base'].spawnCreep(
+                    [
+                        CARRY,  CARRY,  CARRY,  CARRY,  CARRY,  CARRY,  CARRY,
+                        MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE
+                    ], newName,
                     {memory: {role: 'cargo'}});
         }
 
