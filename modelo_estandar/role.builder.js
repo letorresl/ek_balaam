@@ -54,9 +54,10 @@ var roleBuilder = {
             });
 
             // Los ordenamientos no son in-place
-            damagedCommon = damagedCommon.sort(ordenaEstructuras)
-            damagedFortification = damagedFortification.sort(ordenaEstructuras)
-            damagedStructures = damagedCommon.concat(damagedFortification)
+            damagedCommon = damagedCommon.sort(ordenaEstructuras);
+            damagedFortification = damagedFortification.sort(ordenaEstructuras);
+            damagedStructures = damagedCommon.concat(damagedFortification);
+            console.log('carajo');
 
             creep.memory.building = true;
             creep.memory.mostDamaged = damagedStructures[0].id;
@@ -73,12 +74,15 @@ var roleBuilder = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
-            /** Reparacion de estructuras dañadas **/
+            /** Reparacion de estructuras daÃ±adas **/
             else if (Game.getObjectById(creep.memory.mostDamaged)) {
                 var mostDamaged = Game.getObjectById(creep.memory.mostDamaged);
                 creep.say(mostDamaged.hits)
                 if (creep.repair(mostDamaged) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(mostDamaged, {visualizePathStyle: {stroke: '#ffffff'}});
+                }
+                if (mostDamaged.hits == mostDamaged.hitsMax) {
+                    creep.memory.building = false;
                 }
             }
         }
@@ -119,3 +123,4 @@ var roleBuilder = {
 };
 
 module.exports = roleBuilder;
+
