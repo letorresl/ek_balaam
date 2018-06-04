@@ -3,39 +3,60 @@ var roleBuilder = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
+        function ordenaEstructuras(eA, eB) {
+            if (eA.structureType == STRUCTURE_RAMPART) {
+                var numeradorA = 300000000 //Considera la misma importancia que una pared
+            }
+            else {
+                var numeradorA = eA.hitsMax
+            }
+            if (eB.structureType == STRUCTURE_RAMPART) {
+                var numeradorB = 300000000 //Considera la misma importancia que una pared
+            }
+            else {
+                var numeradorB = eB.hitsMax
+            }
+            
+            hitsA = eA.hits / numeradorA;
+            hitsB = eB.hits / numeradorB;
+            return (
+                hitsA - hitsB
+            );
+        }
+
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
             creep.say('harvest');
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-            var damagedStructures = creep.room.find(FIND_STRUCTURES, {
+            var damagedCommon = creep.room.find(FIND_STRUCTURES, {
                 filter: function(estructura){
-                    return estructura.hits < estructura.hitsMax;
+                    return (
+                        (estructura.hits / estructura.hitsMax) < 0.80 &&
+                        !(
+                            estructura.structureType == STRUCTURE_WALL ||
+                            estructura.structureType == STRUCTURE_RAMPART
+                        )
+                    );
                 }
             });
 
-            damagedStructures.sort(
-                function (eA, eB) {
-                    if (eA.structureType == STRUCTURE_RAMPART) {
-                        var numeradorA = 300000000 //Considera la misma importancia que una pared
-                    }
-                    else {
-                        var numeradorA = eA.hitsMax
-                    }
-                    if (eB.structureType == STRUCTURE_RAMPART) {
-                        var numeradorB = 300000000 //Considera la misma importancia que una pared
-                    }
-                    else {
-                        var numeradorB = eB.hitsMax
-                    }
-                    
-                    hitsA = eA.hits / numeradorA;
-                    hitsB = eB.hits / numeradorB;
+            var damagedFortification = creep.room.find(FIND_STRUCTURES, {
+                filter: function(estructura){
                     return (
-                        hitsA - hitsB
+                        (estructura.hits / estructura.hitsMax) < 0.80 &&
+                        (
+                            estructura.structureType == STRUCTURE_WALL ||
+                            estructura.structureType == STRUCTURE_RAMPART
+                        )
                     );
                 }
-            )
+            });
+
+            // Los ordenamientos no son in-place
+            damagedCommon = damagedCommon.sort(ordenaEstructuras)
+            damagedFortification = damagedFortification.sort(ordenaEstructuras)
+            damagedStructures = damagedCommon.concat(damagedFortification)
 
             creep.memory.building = true;
             creep.memory.mostDamaged = damagedStructures[0].id;
