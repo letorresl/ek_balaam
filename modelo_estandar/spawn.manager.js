@@ -141,7 +141,7 @@ var spawnManager = {
             soldiers.length >= 1 &&
             healers.length >= 1
         ) {
-            if (Game.rooms[nombre].energyAvailable >= 1200 && claimers.length < 1) {
+            if (Game.rooms[nombre].energyAvailable >= 120000 && claimers.length < 1) {
                 var newName = 'Claimer' + Game.time;
                 console.log('Spawning new Claimer: ' + newName);
                 Game.spawns['Base'].spawnCreep([
