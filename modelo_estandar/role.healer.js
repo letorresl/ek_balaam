@@ -3,7 +3,7 @@ var roleHealer = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-        var base_flag = Game.flags.base_flag;
+        var seguro_flag = Game.flags.seguro_flag;
 
         /* ubica un creep aliado herido */
         var targetHerido = creep.pos.findClosestByPath(FIND_MY_CREEPS, {
@@ -12,15 +12,24 @@ var roleHealer = {
             }
         });
 
-        /* si hay soldados, atacalos primero */
-        if (targetHerido) {
-            if (creep.heal(targetHerido) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(targetHerido);
+        // si el creep tiene 40% o mas de hp, entonces actua
+        if (creep.hits / creep.hitsMax >= 40) {
+            if (creep.getActiveBodyparts(HEAL) > 0) {
+                // si el healer mismo esta herido, que se cure
+                if (creep.hits < creep.hitsMax) {
+                    creep.heal(creep);
+                }
+                // si hay aliados heridos, curalos
+                else if (targetHerido) {
+                    if (creep.heal(targetHerido) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targetHerido);
+                    }
+                }
             }
         }
-        /* si no encuentra hostilidad ni bandera, regresar a base flag */
-        else if (base_flag) {
-            creep.moveTo(base_flag);
+        /* si no encuentra nada, regresar a seguro flag */
+        else if (seguro_flag) {
+            creep.moveTo(seguro_flag);
         }
         /* regresar a la base */
         else {
