@@ -21,7 +21,7 @@ var roleSoldier = {
         var wall_flag = Game.flags.wall_flag;
 
         // si el creep tiene 40% o mas de hp, entonces actua
-        if (creep.hits / creep.hitsMax >= 40) {
+        if (100 * creep.hits / creep.hitsMax >= 40) {
             if (creep.getActiveBodyparts(HEAL) > 0) {
                 // si el healer mismo esta herido, que se cure
                 if (creep.hits < creep.hitsMax) {
