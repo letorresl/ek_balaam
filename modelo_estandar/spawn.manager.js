@@ -59,7 +59,7 @@ var spawnManager = {
         }
 
         if (
-                upgraders.length < 3
+                upgraders.length < 2
         ) {
             if (Game.rooms[nombre].energyAvailable < 300 && upgraders.length < 1) {
                 var newName = 'Actualizador' + Game.time;
