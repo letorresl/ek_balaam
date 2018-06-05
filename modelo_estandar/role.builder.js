@@ -57,7 +57,6 @@ var roleBuilder = {
             damagedCommon = damagedCommon.sort(ordenaEstructuras);
             damagedFortification = damagedFortification.sort(ordenaEstructuras);
             damagedStructures = damagedCommon.concat(damagedFortification);
-            console.log('carajo');
 
             creep.memory.building = true;
             creep.memory.mostDamaged = damagedStructures[0].id;
