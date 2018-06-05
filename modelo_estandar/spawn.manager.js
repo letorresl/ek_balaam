@@ -22,13 +22,23 @@ var spawnManager = {
 
         var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
         console.log('Claimers: ' + claimers.length);
+        
+        var minharvesters = 2;
+        var mincargos = 2;
+        var minupgraders = 2;
+        var minbuilders = 2;
+        var minsoldiers = 2;
+        var minhealers = 2;
+        var minclaimers = 0;
 
         for (var name in Game.spawns) {
             var nombre = Game.spawns[name].room.name
             console.log('Room "'+ nombre +'" has ' + Game.rooms[nombre].energyAvailable + ' energy'); 
         } 
 
-        if (harvesters.length < 2) {
+        if (
+            harvesters.length < minharvesters
+        ) {
             if (Game.rooms[nombre].energyAvailable <= 300 && harvesters.length == 0) {
 	        	var newName = 'Recolector' + Game.time;
 		        console.log('Spawning new harvester: ' + newName);
@@ -44,8 +54,8 @@ var spawnManager = {
         }
 
         if (
-            cargos.length < 2 &&
-            harvesters.length >= 2 &&
+            harvesters.length >= minharvesters &&
+            cargos.length < mincargos &&
             Game.rooms[nombre].energyAvailable >= 700
         ) {
             	var newName = 'Cargador' + Game.time;
@@ -59,7 +69,7 @@ var spawnManager = {
         }
 
         if (
-                upgraders.length < 1
+                upgraders.length < minupgraders
         ) {
             if (Game.rooms[nombre].energyAvailable < 300 && upgraders.length < 1) {
                 var newName = 'Actualizador' + Game.time;
@@ -67,7 +77,7 @@ var spawnManager = {
                 Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
                             {memory: {role: 'upgrader'}});
             }
-            else if (harvesters.length >= 2 && Game.rooms[nombre].energyAvailable >= 650) {
+            else if (harvesters.length >= minharvesters && Game.rooms[nombre].energyAvailable >= 650) {
                 var newName = 'Actualizador' + Game.time;
                 console.log('Spawning new upgrader: ' + newName);
                 Game.spawns['Base'].spawnCreep(
@@ -81,7 +91,10 @@ var spawnManager = {
         }
 
 
-        if (builders.length < 2 && harvesters.length >= 2) {
+        if (
+            builders.length < minbuilders &&
+            harvesters.length >= minharvesters
+        ) {
             if (Game.rooms[nombre].energyAvailable < 300 && builders.length < 1) {
                 var newName = 'Constructor' + Game.time;
                 console.log('Spawning new builder: ' + newName);
@@ -99,12 +112,12 @@ var spawnManager = {
 
 
         if (
-            builders.length >= 2 &&
-            harvesters.length >= 2 &&
-            upgraders.length >= 2 &&
-            cargos.length >= 2
+            builders.length >= minbuilders &&
+            harvesters.length >= minharvesters &&
+            upgraders.length >= minupgraders &&
+            cargos.length >= mincargos
         ) {
-            if (Game.rooms[nombre].energyAvailable >= 600 && soldiers.length < 5) {
+            if (Game.rooms[nombre].energyAvailable >= 600 && soldiers.length < minsoldiers) {
                 var newName = 'Soldier' + Game.time;
                 console.log('Spawning new Soldier: ' + newName);
                 Game.spawns['Base'].spawnCreep([
@@ -116,13 +129,13 @@ var spawnManager = {
         }
 
         if (
-            builders.length >= 2 &&
-            harvesters.length >= 2 &&
-            upgraders.length >= 2 &&
-            cargos.length >= 2 &&
-            soldiers.length >= 1
+            builders.length >= minbuilders &&
+            harvesters.length >= minharvesters &&
+            upgraders.length >= minupgraders &&
+            cargos.length >= mincargos &&
+            soldiers.length >= minsoldiers
         ) {
-            if (Game.rooms[nombre].energyAvailable >= 600 && healers.length < 0) {
+            if (Game.rooms[nombre].energyAvailable >= 600 && healers.length < minhealers) {
                 var newName = 'Healer' + Game.time;
                 console.log('Spawning new Healer: ' + newName);
                 Game.spawns['Base'].spawnCreep([
@@ -134,14 +147,14 @@ var spawnManager = {
         }
 
         if (
-            builders.length >= 2 &&
-            harvesters.length >= 2 &&
-            upgraders.length >= 2 &&
-            cargos.length >= 2 &&
-            soldiers.length >= 1 &&
-            healers.length >= 1
+            builders.length >= minbuilders &&
+            harvesters.length >= minharvesters &&
+            upgraders.length >= minupgraders &&
+            cargos.length >= mincargos &&
+            soldiers.length >= minsoldiers &&
+            healers.length >= minhealers
         ) {
-            if (Game.rooms[nombre].energyAvailable >= 120000 && claimers.length < 1) {
+            if (Game.rooms[nombre].energyAvailable >= 120000 && claimers.length < minclaimers) {
                 var newName = 'Claimer' + Game.time;
                 console.log('Spawning new Claimer: ' + newName);
                 Game.spawns['Base'].spawnCreep([

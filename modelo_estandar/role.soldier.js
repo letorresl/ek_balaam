@@ -21,7 +21,7 @@ var roleSoldier = {
         var wall_flag = Game.flags.wall_flag;
 
         // si el creep tiene 40% o mas de hp, entonces actua
-        if (100 * creep.hits / creep.hitsMax >= 60) {
+        if (100 * creep.hits / creep.hitsMax >= 90) {
             if (creep.getActiveBodyparts(HEAL) > 0) {
                 // si el healer mismo esta herido, que se cure
                 if (creep.hits < creep.hitsMax) {
@@ -52,13 +52,38 @@ var roleSoldier = {
             /* si existe bandera de ataque */
             else if (attack_flag) {
                 if (creep.pos.roomName === attack_flag.pos.roomName) {
-                    let hostile_spawn = creep.room.find(FIND_HOSTILE_SPAWNS)[0];
-                    if (creep.attack(hostile_spawn) === ERR_NOT_IN_RANGE) {
-                        creep.moveTo(hostile_spawn);
+                    let objetivo = creep.room.find(FIND_HOSTILE_SPAWNS)[0];
+                    var targets = creep.room.find(FIND_STRUCTURES, {
+                        filter: (structure) => {
+                            return (
+                                    structure.structureType == STRUCTURE_TOWER
+                            );
+                        }
+                    })[0];
+                    if (targets) {
+                            objetivo = targets;
+                    }
+                    if (creep.attack(objetivo) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(objetivo);
                     }
                 }
                 else {
                     creep.moveTo(attack_flag);
+                }
+            }
+
+            /* si hay cualquier tipo de creep hostil*/
+            else if (
+                targetWorker &&
+                (
+                    creep.room.controller.my ||
+                    (
+                        attack_flag.pos.roomName == creep.pos.roomName
+                    )
+                )
+            ) {
+                if (creep.attack(targetWorker) === ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targetWorker);
                 }
             }
             /* si hay soldados, atacalos primero */
@@ -75,19 +100,13 @@ var roleSoldier = {
                     creep.moveTo(targetAtacante);
                 }
             }
-            /* si hay cualquier tipo de creep hostil*/
-            else if (
-                targetWorker &&
-                (
-                    creep.room.controller.my ||
-                    (
-                        attack_flag.pos.roomName == creep.pos.roomName
-                    )
-                )
-            ) {
-                if (creep.attack(targetWorker) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targetWorker);
-                }
+                    /* si no encuentra hostilidad ni bandera, regresar a base flag */
+            else if (base_flag) {
+                creep.moveTo(base_flag);
+            }
+            /* regresar a la base */
+            else {
+                creep.moveTo(Game.spawns['Base']);
             }
 
         }
