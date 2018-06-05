@@ -101,8 +101,8 @@ var roleSoldier = {
                 }
             }
                     /* si no encuentra hostilidad ni bandera, regresar a base flag */
-            else if (base_flag) {
-                creep.moveTo(base_flag);
+            else if (seguro_flag) {
+                creep.moveTo(seguro_flag);
             }
             /* regresar a la base */
             else {
@@ -111,8 +111,8 @@ var roleSoldier = {
 
         }
         /* si no encuentra hostilidad ni bandera, regresar a base flag */
-        else if (base_flag) {
-            creep.moveTo(base_flag);
+        else if (seguro_flag) {
+            creep.moveTo(seguro_flag);
         }
         /* regresar a la base */
         else {
