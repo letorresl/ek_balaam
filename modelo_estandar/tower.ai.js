@@ -20,7 +20,7 @@ var towerAI = {
                 var ejercicio = true;
             }
         }
-        if (!ejercicio) {
+        if (!ejercicio && closestHostile) {
             if (targetHerido) {
                 tower.heal(targetHerido);
             }
