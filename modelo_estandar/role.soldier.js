@@ -21,7 +21,7 @@ var roleSoldier = {
         var wall_flag = Game.flags.wall_flag;
 
         // si el creep tiene 40% o mas de hp, entonces actua
-        if (100 * creep.hits / creep.hitsMax >= 40) {
+        if (100 * creep.hits / creep.hitsMax >= 60) {
             if (creep.getActiveBodyparts(HEAL) > 0) {
                 // si el healer mismo esta herido, que se cure
                 if (creep.hits < creep.hitsMax) {
@@ -35,7 +35,7 @@ var roleSoldier = {
                 }
             }
             else if (wall_flag) {
-                if (creep.pos === wall_flag.pos) {
+                if (creep.pos == wall_flag.pos) {
                     var targetWall = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
                         filter: function(estructura){
                             return (
@@ -47,6 +47,18 @@ var roleSoldier = {
                 }
                 else {
                     creep.moveTo(wall_flag);
+                }
+            }
+            /* si existe bandera de ataque */
+            else if (attack_flag) {
+                if (creep.pos.roomName === attack_flag.pos.roomName) {
+                    let hostile_spawn = creep.room.find(FIND_HOSTILE_SPAWNS)[0];
+                    if (creep.attack(hostile_spawn) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(hostile_spawn);
+                    }
+                }
+                else {
+                    creep.moveTo(attack_flag);
                 }
             }
             /* si hay soldados, atacalos primero */
@@ -77,18 +89,7 @@ var roleSoldier = {
                     creep.moveTo(targetWorker);
                 }
             }
-            /* si existe bandera de ataque */
-            else if (attack_flag) {
-                if (creep.pos.roomName === attack_flag.pos.roomName) {
-                    let hostile_spawn = creep.room.find(FIND_HOSTILE_SPAWNS)[0];
-                    if (creep.attack(hostile_spawn) === ERR_NOT_IN_RANGE) {
-                        creep.moveTo(hostile_spawn);
-                    }
-                }
-                else {
-                    creep.moveTo(attack_flag);
-                }
-            }
+
         }
         /* si no encuentra hostilidad ni bandera, regresar a base flag */
         else if (base_flag) {
