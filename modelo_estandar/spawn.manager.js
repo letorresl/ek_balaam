@@ -40,7 +40,7 @@ var spawnManager = {
         var minupgraders = 2;
         var minbuilders = 2;
         var minsoldiers = 2;
-        var minhealers = 2;
+        var minhealers = 1;
         var minclaimers = 0;
 
         for (var name in Game.spawns) {
