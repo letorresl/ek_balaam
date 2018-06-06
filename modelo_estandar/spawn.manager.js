@@ -109,7 +109,10 @@ var spawnManager = {
                 Game.spawns['Base'].spawnCreep([WORK, CARRY, MOVE], newName,
                             {memory: {role: 'upgrader'}});
             }
-            else if (harvesters.length >= minharvesters && Game.rooms[nombre].energyAvailable >= 650) {
+            else if (
+                harvesters.length >= minharvesters &&
+                cargos.length >= mincargos &&
+                Game.rooms[nombre].energyAvailable >= 650) {
                 var newName = 'Actualizador' + Game.time;
                 console.log('Spawning new upgrader: ' + newName);
                 Game.spawns['Base'].spawnCreep(
