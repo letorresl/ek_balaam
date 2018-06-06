@@ -124,8 +124,9 @@ var spawnManager = {
 
 
         if (
-            builders.length < minbuilders &&
-            harvesters.length >= minharvesters
+            harvesters.length >= minharvesters &&
+            cargos.length >= mincargos &&
+            builders.length < minbuilders
         ) {
             if (Game.rooms[nombre].energyAvailable < 300 && builders.length < 1) {
                 var newName = 'Constructor' + Game.time;

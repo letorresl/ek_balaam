@@ -97,10 +97,26 @@ var roleBuilder = {
                 }
             });
 
+            var storeCercano = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: function(estructura){
+                    return (
+                        estructura.structureType == STRUCTURE_CONTAINER &&
+                        estructura.store[RESOURCE_ENERGY] > 0
+                    );
+                }
+            });
+
+            if (storeCercano) {
+                almacen = storeCercano;
+            }
+            else if (contenedorCercano) {
+                almacen = contenedorCercano;
+            }
+
             /* Si existe un contenedor en el room, entonces retirar energia de ahi */
-            if (contenedorCercano && contenedorCercano.store[RESOURCE_ENERGY] > 0) {
-                if(creep.withdraw(contenedorCercano, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(contenedorCercano, {visualizePathStyle: {stroke: '#ffaa00'}});
+            if (almacen && almacen.store[RESOURCE_ENERGY] > 0) {
+                if(creep.withdraw(almacen, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(almacen, {visualizePathStyle: {stroke: '#ffaa00'}});
                 }
             }
             /* De lo contrario, extraerla de una fuente cercana */
