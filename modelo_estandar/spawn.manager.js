@@ -1,9 +1,20 @@
+var roleRecolector = require('role.recolector');
+
+bodyCost = function (body) {
+    return body.reduce(function (cost, part) {
+        return cost + BODYPART_COST[part];
+    }, 0);
+}
+
 var spawnManager = {
 
     run: function() {
 
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
         console.log('Harvesters: ' + harvesters.length);
+
+        var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector');
+        console.log('Recolectores: ' + recolectores.length);
 
         var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'cargo');
         console.log('Cargos: ' + cargos.length);
@@ -24,6 +35,7 @@ var spawnManager = {
         console.log('Claimers: ' + claimers.length);
         
         var minharvesters = 2;
+        var minrecolectores = 1;
         var mincargos = 2;
         var minupgraders = 2;
         var minbuilders = 2;
@@ -66,6 +78,26 @@ var spawnManager = {
                         MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE
                     ], newName,
                     {memory: {role: 'cargo'}});
+        }
+
+        if (
+            harvesters.length >= minharvesters &&
+            cargos.length < mincargos &&
+            recolectores.length < minrecolectores &&
+            Game.rooms[nombre].energyAvailable >= bodyCost([
+        WORK, WORK, WORK, WORK, WORK,
+        CARRY, CARRY, CARRY, CARRY, CARRY,
+        MOVE
+    ])
+        ) {
+	        	var newName = 'RecolectorM' + Game.time;
+		        console.log('Spawning new harvester: ' + newName);
+                Game.spawns['Base'].spawnCreep([
+        WORK, WORK, WORK, WORK, WORK,
+        CARRY, CARRY, CARRY, CARRY, CARRY,
+        MOVE
+    ], newName,
+                    {memory: {role: 'recolector', sourceId: -1}});
         }
 
         if (
