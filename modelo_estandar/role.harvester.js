@@ -31,16 +31,30 @@ var roleHarvester = {
                             structure.structureType == STRUCTURE_TOWER
                         ) && (
                             structure.energy < structure.energyCapacity
-                        ) || (
-                            structure.structureType == STRUCTURE_CONTAINER &&
-                            structure.store[RESOURCE_ENERGY] < structure.storeCapacity   
                         )
                     );
                 }
             });
-            if (targets.length > 0) {
-                if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+
+            var contenedores = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (
+                            structure.structureType == STRUCTURE_CONTAINER &&
+                            structure.store[RESOURCE_ENERGY] < structure.storeCapacity   
+                    );
+                }
+            });
+
+            var target = creep.pos.findClosestByPath(targets);
+            var contenedor = creep.pos.findClosestByPath(targets);
+            if (target) {
+                if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+                }
+            }
+            else if (contenedor) {
+                if (creep.transfer(contenedor, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(contenedor, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
         }

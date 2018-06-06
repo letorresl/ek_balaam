@@ -133,7 +133,7 @@ var spawnManager = {
                 Game.spawns['Base'].spawnCreep([WORK,CARRY,MOVE], newName,
                     {memory: {role: 'builder'}});
             }
-            else {
+            else if (Game.rooms[nombre].energyAvailable >= 650) {
                 var newName = 'Constructor' + Game.time;
                 console.log('Spawning new builder: ' + newName);
                 Game.spawns['Base'].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], newName,
