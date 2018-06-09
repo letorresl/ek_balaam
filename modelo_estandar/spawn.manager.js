@@ -35,7 +35,7 @@ var spawnManager = {
         console.log('Claimers: ' + claimers.length);
         
         var minharvesters = 2;
-        var minrecolectores = 1;
+        var minrecolectores = 4;
         var mincargos = 2;
         var minupgraders = 2;
         var minbuilders = 2;
@@ -82,20 +82,20 @@ var spawnManager = {
 
         if (
             harvesters.length >= minharvesters &&
-            cargos.length < mincargos &&
+            cargos.length >= mincargos &&
             recolectores.length < minrecolectores &&
             Game.rooms[nombre].energyAvailable >= bodyCost([
-        WORK, WORK, WORK, WORK, WORK,
-        CARRY, CARRY, CARRY, CARRY, CARRY,
-        MOVE
-    ])
+                WORK, WORK, 
+                CARRY, CARRY, CARRY, CARRY, CARRY,
+                MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
+            ])
         ) {
 	        	var newName = 'RecolectorM' + Game.time;
 		        console.log('Spawning new harvester: ' + newName);
                 Game.spawns['Base'].spawnCreep([
-        WORK, WORK, WORK, WORK, WORK,
+        WORK, WORK, 
         CARRY, CARRY, CARRY, CARRY, CARRY,
-        MOVE
+        MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
     ], newName,
                     {memory: {role: 'recolector', sourceId: -1}});
         }
@@ -213,3 +213,4 @@ var spawnManager = {
 };
 
 module.exports = spawnManager;
+
