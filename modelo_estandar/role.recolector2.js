@@ -76,17 +76,18 @@ var roleRecolector2 = {
                         }
                     });
         
-                    if (creep.memory.sourceId) {
-                        // Si el creep puede cargar mas energia, recolectarla
-                        if  (creep.carry.energy < creep.carryCapacity) {
+
+                    // Si el creep puede cargar mas energia, recolectarla
+                    if  (creep.carry.energy < creep.carryCapacity) {
+                        if (creep.memory.sourceId) {
                             source = Game.getObjectById(creep.memory.sourceId);
-                            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
-                            }
                         }
-                    }
-                    else {
-                        creep.memory.sourceId = source.id;
+                        if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
+                        }
+                        else {
+                            creep.memory.sourceId = source.id;
+                        }
                     }
                 }
             }
