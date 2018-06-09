@@ -6,12 +6,6 @@ var roleHarvester = {
         var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'cargo');
         
         if (creep.memory.storing && creep.carry.energy == 0) {
-            var source = creep.pos.findClosestByPath(FIND_SOURCES, {
-                filter: function(source){
-                    return source.memory.workers <= 1; //Access this sources memory and if this source has less then 2 workers return this source
-                }
-            });
-            creep.memory.sourceId = source.id;
             creep.memory.storing = false;
             creep.say('Recolectar');
         }
@@ -67,9 +61,18 @@ var roleHarvester = {
         }
         /* Recoleccion de energia */
         else {
-            var source = Game.getObjectById(creep.memory.sourceId);
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
+            var source = creep.pos.findClosestByPath(FIND_SOURCES, {
+                filter: function(source){
+                    return source.memory.workers < 2; //Access this sources memory and if this source has less then 2 workers return this source
+                }
+            });
+            if  (creep.carry.energy < creep.carryCapacity) {
+                if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
+                else if (source) {
+                    creep.memory.sourceId = source.id;
+                }    
             }
         }
     }
