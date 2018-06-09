@@ -69,23 +69,24 @@ var roleRecolector2 = {
                     creep.moveTo(fuente_flag);
                 }
                 else {
-                    var source = creep.pos.findClosestByPath(FIND_SOURCES, {
+                    source = creep.pos.findClosestByPath(FIND_SOURCES, {
                         filter: function(source){
                             //Access this sources memory and if this source has less then 2 workers return this source
                             return source.memory.workers <= 2; 
                         }
                     });
         
-                    if (source) {
+                    if (creep.memory.sourceId) {
                         // Si el creep puede cargar mas energia, recolectarla
                         if  (creep.carry.energy < creep.carryCapacity) {
+                            source = Game.getObjectById(creep.memory.sourceId);
                             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
                             }
-                            else if (source) {
-                                creep.memory.sourceId = source.id;
-                            }    
                         }
+                    }
+                    else {
+                        creep.memory.sourceId = source.id;
                     }
                 }
             }
