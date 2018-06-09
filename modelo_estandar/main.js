@@ -44,11 +44,11 @@ module.exports.loop = function () {
         }
 
         if (creep.memory.role == 'recolector2') {
-            roleRecolector.run(creep);
+            roleRecolector2.run(creep);
         }
 
         if (creep.memory.role == 'recolector3') {
-            roleRecolector.run(creep);
+            roleRecolector3.run(creep);
         }
 
         if (creep.memory.role == 'cargo') {
@@ -73,6 +73,14 @@ module.exports.loop = function () {
 
         if (creep.memory.role == 'claimer') {
             roleClaimer.run(creep);
+        }
+
+        if (creep.memory.role == 'claimer2') {
+            roleClaimer2.run(creep);
+        }
+
+        if (creep.memory.role == 'claimer3') {
+            roleClaimer3.run(creep);
         }
     }
 }
