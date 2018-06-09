@@ -10,6 +10,17 @@ var spawnManager = {
 
     run: function() {
 
+        // Control de poblacion
+        var minharvesters = 2;
+        var minrecolectores = 4;
+        var mincargos = 2;
+        var minupgraders = 2;
+        var minbuilders = 2;
+        var minsoldiers = 2;
+        var minhealers = 1;
+        var minclaimers = 0;
+
+        // Registro de individuos
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
         console.log('Harvesters: ' + harvesters.length);
 
@@ -34,20 +45,13 @@ var spawnManager = {
         var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
         console.log('Claimers: ' + claimers.length);
         
-        var minharvesters = 2;
-        var minrecolectores = 4;
-        var mincargos = 2;
-        var minupgraders = 2;
-        var minbuilders = 2;
-        var minsoldiers = 2;
-        var minhealers = 1;
-        var minclaimers = 0;
 
         for (var name in Game.spawns) {
             var nombre = Game.spawns[name].room.name
             console.log('Room "'+ nombre +'" has ' + Game.rooms[nombre].energyAvailable + ' energy'); 
         } 
 
+        // Recolectores Basicos
         if (
             harvesters.length < minharvesters
         ) {
@@ -65,6 +69,7 @@ var spawnManager = {
             }
         }
 
+        // Cargadores/Transporte
         if (
             harvesters.length >= minharvesters &&
             cargos.length < mincargos &&
@@ -80,6 +85,7 @@ var spawnManager = {
                     {memory: {role: 'cargo'}});
         }
 
+        // Recolectores a distancia
         if (
             harvesters.length >= minharvesters &&
             cargos.length >= mincargos &&
@@ -100,6 +106,7 @@ var spawnManager = {
                     {memory: {role: 'recolector', sourceId: -1}});
         }
 
+        // Actualizadores
         if (
                 upgraders.length < minupgraders
         ) {
@@ -125,7 +132,7 @@ var spawnManager = {
             }
         }
 
-
+        // Constructores
         if (
             harvesters.length >= minharvesters &&
             cargos.length >= mincargos &&
@@ -146,7 +153,7 @@ var spawnManager = {
 
         }
 
-
+        // Soldados
         if (
             builders.length >= minbuilders &&
             harvesters.length >= minharvesters &&
@@ -164,6 +171,7 @@ var spawnManager = {
             }
         }
 
+        // Curadores
         if (
             builders.length >= minbuilders &&
             harvesters.length >= minharvesters &&
@@ -182,6 +190,7 @@ var spawnManager = {
             }
         }
 
+        // Reclamadores
         if (
             builders.length >= minbuilders &&
             harvesters.length >= minharvesters &&
@@ -201,6 +210,9 @@ var spawnManager = {
             }
         }
 
+
+
+        // Texto
         if(Game.spawns['Base'].spawning) {
             var spawningCreep = Game.creeps[Game.spawns['Base'].spawning.name];
             Game.spawns['Base'].room.visual.text(
