@@ -100,7 +100,7 @@ var roleBuilder = {
             var storeCercano = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: function(estructura){
                     return (
-                        estructura.structureType == STRUCTURE_CONTAINER &&
+                        estructura.structureType == STRUCTURE_STORAGE &&
                         estructura.store[RESOURCE_ENERGY] > 0
                     );
                 }
