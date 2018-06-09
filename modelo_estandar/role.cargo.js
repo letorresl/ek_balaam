@@ -24,7 +24,8 @@ var roleCargo = {
                         ) && (
                             structure.energy < structure.energyCapacity
                         ) || (
-                            structure.structureType == STRUCTURE_CONTAINER &&
+                            (structure.structureType == STRUCTURE_CONTAINER ||
+                            structure.structureType == STRUCTURE_STORAGE) &&
                             structure.store[RESOURCE_ENERGY] < structure.storeCapacity   
                         )
                     );
@@ -51,7 +52,8 @@ var roleCargo = {
             var targetSecundario = targetStructures.filter(
                 function (target) {
                     return (
-                        target.structureType == STRUCTURE_CONTAINER
+                        target.structureType == STRUCTURE_CONTAINER ||
+                        target.structureType == STRUCTURE_STORAGE
                     );
                 }
             );
@@ -96,3 +98,4 @@ var roleCargo = {
 };
 
 module.exports = roleCargo;
+

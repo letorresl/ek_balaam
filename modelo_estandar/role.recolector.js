@@ -15,8 +15,7 @@ var roleRecolector = {
             creep.say('Recolectar');
         }
         if (!creep.memory.storing &&
-            creep.carry.energy == creep.carryCapacity &&
-            cargos.length == 0
+            creep.carry.energy == creep.carryCapacity 
             ) {
             creep.memory.storing = true;
             if (creep.memory.sourceId) {
@@ -37,12 +36,14 @@ var roleRecolector = {
                         ) && (
                             structure.energy < structure.energyCapacity
                         ) || (
-                            structure.structureType == STRUCTURE_CONTAINER &&
+                            (structure.structureType == STRUCTURE_CONTAINER ||
+                            structure.structureType == STRUCTURE_STORAGE) &&
                             structure.store[RESOURCE_ENERGY] < structure.storeCapacity   
                         )
                     );
                 }
             });
+            
 
             // Si hay almacenes disponibles, ir al mas cercano
             if (targets.length > 0) {
@@ -52,30 +53,32 @@ var roleRecolector = {
                 }
             }
             // Ir a la base si no hay almacenes cerca
-            else if (creep.pos.roomName != Game.spawns['Base'].room.name) {
+            else if (creep.pos.roomName != Game.spawns['Base'].pos.roomName) {
                 creep.moveTo(Game.spawns['Base'])
             }
         }
         /* Recoleccion de energia */
         else {
-            var source = creep.pos.findClosestByPath(FIND_SOURCES, {
-                filter: function(source){
-                    return source.memory.workers < 2; //Access this sources memory and if this source has less then 2 workers return this source
-                }
-            });
-
-            if (source) {
-                // Si el creep puede cargar mas energia, recolectarla
-                if  (creep.carry.energy < creep.carryCapacity) {
-                    creep.memory.sourceId = source.id;
-                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
-                    }
-                }
-            }
-            else if (fuente_flag) {
+            if (fuente_flag) {
                 if (creep.pos.roomName != fuente_flag.pos.roomName) {
                     creep.moveTo(fuente_flag);
+                }
+                else {
+                    var source = creep.pos.findClosestByPath(FIND_SOURCES, {
+                        filter: function(source){
+                            return source.memory.workers < 2; //Access this sources memory and if this source has less then 2 workers return this source
+                        }
+                    });
+        
+                    if (source) {
+                        // Si el creep puede cargar mas energia, recolectarla
+                        if  (creep.carry.energy < creep.carryCapacity) {
+                            creep.memory.sourceId = source.id;
+                            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -83,3 +86,4 @@ var roleRecolector = {
 };
 
 module.exports = roleRecolector;
+
