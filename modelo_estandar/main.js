@@ -1,11 +1,15 @@
 var roleHarvester = require('role.harvester');
 var roleRecolector = require('role.recolector');
+var roleRecolector2 = require('role.recolector2');
+var roleRecolector3 = require('role.recolector3');
 var roleCargo     = require('role.cargo');
 var roleUpgrader  = require('role.upgrader');
 var roleBuilder   = require('role.builder');
 var roleHealer   = require('role.healer');
 var roleSoldier   = require('role.soldier');
 var roleClaimer   = require('role.claimer');
+var roleClaimer2   = require('role.claimer2');
+var roleClaimer3   = require('role.claimer3');
 var towerAI = require('tower.ai');
 var sourceManager = require('source.manager');
 var spawnManager  = require('spawn.manager');
@@ -36,6 +40,14 @@ module.exports.loop = function () {
         }
 
         if (creep.memory.role == 'recolector') {
+            roleRecolector.run(creep);
+        }
+
+        if (creep.memory.role == 'recolector2') {
+            roleRecolector.run(creep);
+        }
+
+        if (creep.memory.role == 'recolector3') {
             roleRecolector.run(creep);
         }
 

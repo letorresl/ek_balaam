@@ -1,5 +1,3 @@
-var roleRecolector = require('role.recolector');
-
 bodyCost = function (body) {
     return body.reduce(function (cost, part) {
         return cost + BODYPART_COST[part];
@@ -13,12 +11,16 @@ var spawnManager = {
         // Control de poblacion
         var minharvesters = 2;
         var minrecolectores = 6;
+        var minrecolectores2 = 6;
+        var minrecolectores3 = 6;
         var mincargos = 2;
         var minupgraders = 2;
         var minbuilders = 2;
         var minsoldiers = 2;
         var minhealers = 1;
         var minclaimers = 1;
+        var minclaimers2 = 1;
+        var minclaimers3 = 1;
 
         // Registro de individuos
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
@@ -26,6 +28,12 @@ var spawnManager = {
 
         var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector');
         console.log('Recolectores: ' + recolectores.length);
+
+        var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector2');
+        console.log('Recolectores2: ' + recolectores.length);
+
+        var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector3');
+        console.log('Recolectores3: ' + recolectores.length);
 
         var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'cargo');
         console.log('Cargos: ' + cargos.length);
@@ -44,6 +52,12 @@ var spawnManager = {
 
         var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
         console.log('Claimers: ' + claimers.length);
+
+        var claimers2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer2');
+        console.log('Claimers2: ' + claimers.length);
+
+        var claimers3 = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer3');
+        console.log('Claimers3: ' + claimers.length);
         
 
         for (var name in Game.spawns) {
@@ -107,6 +121,56 @@ var spawnManager = {
                         MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE, MOVE
                     ], newName,
                     {memory: {role: 'recolector', sourceId: -1}}
+                );
+        }
+
+        // Recolectores a distancia
+        if (
+            harvesters.length >= minharvesters &&
+            cargos.length >= mincargos &&
+            recolectores.length < minrecolectores2 &&
+            Game.rooms[nombre].energyAvailable >= bodyCost(
+                [
+                    WORK, WORK, 
+                    CARRY,  CARRY,  CARRY,  CARRY,  CARRY,  CARRY,
+                    MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE, MOVE
+                ]
+            )
+        ) {
+	        	var newName = 'RecolectorM2' + Game.time;
+		        console.log('Spawning new harvester: ' + newName);
+                Game.spawns['Base'].spawnCreep(
+                    [
+                        WORK, WORK, 
+                        CARRY,  CARRY,  CARRY,  CARRY,  CARRY,  CARRY,
+                        MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE, MOVE
+                    ], newName,
+                    {memory: {role: 'recolector2', sourceId: -1}}
+                );
+        }
+
+        // Recolectores a distancia
+        if (
+            harvesters.length >= minharvesters &&
+            cargos.length >= mincargos &&
+            recolectores.length < minrecolectores3 &&
+            Game.rooms[nombre].energyAvailable >= bodyCost(
+                [
+                    WORK, WORK, 
+                    CARRY,  CARRY,  CARRY,  CARRY,  CARRY,  CARRY,
+                    MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE, MOVE
+                ]
+            )
+        ) {
+	        	var newName = 'RecolectorM3' + Game.time;
+		        console.log('Spawning new harvester: ' + newName);
+                Game.spawns['Base'].spawnCreep(
+                    [
+                        WORK, WORK, 
+                        CARRY,  CARRY,  CARRY,  CARRY,  CARRY,  CARRY,
+                        MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE,   MOVE, MOVE
+                    ], newName,
+                    {memory: {role: 'recolector3', sourceId: -1}}
                 );
         }
 
@@ -212,6 +276,46 @@ var spawnManager = {
                     {memory: {role: 'claimer'}});
             }
         }
+
+        // Reclamadores
+        if (
+            builders.length >= minbuilders &&
+            harvesters.length >= minharvesters &&
+            upgraders.length >= minupgraders &&
+            cargos.length >= mincargos &&
+            soldiers.length >= minsoldiers &&
+            healers.length >= minhealers
+        ) {
+            if (Game.rooms[nombre].energyAvailable >= 1200 && claimers.length < minclaimers2) {
+                var newName = 'Claimer2' + Game.time;
+                console.log('Spawning new Claimer: ' + newName);
+                Game.spawns['Base'].spawnCreep([
+                    CLAIM, CLAIM,
+                    MOVE, MOVE], newName,
+                    {memory: {role: 'claimer2'}});
+            }
+        }
+
+
+        // Reclamadores
+        if (
+            builders.length >= minbuilders &&
+            harvesters.length >= minharvesters &&
+            upgraders.length >= minupgraders &&
+            cargos.length >= mincargos &&
+            soldiers.length >= minsoldiers &&
+            healers.length >= minhealers
+        ) {
+            if (Game.rooms[nombre].energyAvailable >= 1200 && claimers.length < minclaimers3) {
+                var newName = 'Claimer3' + Game.time;
+                console.log('Spawning new Claimer: ' + newName);
+                Game.spawns['Base'].spawnCreep([
+                    CLAIM, CLAIM,
+                    MOVE, MOVE], newName,
+                    {memory: {role: 'claimer3'}});
+            }
+        }
+
 
 
 
