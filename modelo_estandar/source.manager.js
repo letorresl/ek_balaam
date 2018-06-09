@@ -22,7 +22,10 @@ var sourceManager = {
                 for(var i in sources){
                     var source = sources[i];
                     source.memory = room.memory.sources[source.id]; //Set the shortcut
-                    var workers = _.filter(Game.creeps, (creep) => creep.memory.sourceId == source.id);
+                    var workers = _.filter(Game.creeps, (creep) => creep.memory.sourceId == source.id &&
+                        creep.pos.roomName == source.pos.roomName &&
+                        creep.memory.role == 'harvester'
+                        );
                     source.memory.workers = workers.length
                 }
             }
@@ -31,3 +34,4 @@ var sourceManager = {
 };
 
 module.exports = sourceManager;
+
