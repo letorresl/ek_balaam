@@ -67,12 +67,11 @@ var roleHarvester = {
                 }
             });
             if  (creep.carry.energy < creep.carryCapacity) {
+                creep.memory.sourceId = source.id;
                 if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
+                    creep.memory.sourceId = -1;
                 }
-                else if (source) {
-                    creep.memory.sourceId = source.id;
-                }    
             }
         }
     }
