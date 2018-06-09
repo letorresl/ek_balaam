@@ -128,7 +128,7 @@ var spawnManager = {
         if (
             harvesters.length >= minharvesters &&
             cargos.length >= mincargos &&
-            recolectores.length < minrecolectores2 &&
+            recolectores2.length < minrecolectores2 &&
             Game.rooms[nombre].energyAvailable >= bodyCost(
                 [
                     WORK, WORK, 
@@ -153,7 +153,7 @@ var spawnManager = {
         if (
             harvesters.length >= minharvesters &&
             cargos.length >= mincargos &&
-            recolectores.length < minrecolectores3 &&
+            recolectores3.length < minrecolectores3 &&
             Game.rooms[nombre].energyAvailable >= bodyCost(
                 [
                     WORK, WORK, 
