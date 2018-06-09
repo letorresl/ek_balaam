@@ -12,13 +12,13 @@ var spawnManager = {
 
         // Control de poblacion
         var minharvesters = 2;
-        var minrecolectores = 4;
+        var minrecolectores = 6;
         var mincargos = 2;
         var minupgraders = 2;
         var minbuilders = 2;
         var minsoldiers = 2;
         var minhealers = 1;
-        var minclaimers = 0;
+        var minclaimers = 1;
 
         // Registro de individuos
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
@@ -203,12 +203,11 @@ var spawnManager = {
             soldiers.length >= minsoldiers &&
             healers.length >= minhealers
         ) {
-            if (Game.rooms[nombre].energyAvailable >= 120000 && claimers.length < minclaimers) {
+            if (Game.rooms[nombre].energyAvailable >= 1200 && claimers.length < minclaimers) {
                 var newName = 'Claimer' + Game.time;
                 console.log('Spawning new Claimer: ' + newName);
                 Game.spawns['Base'].spawnCreep([
-                    ATTACK,
-                    CLAIM,
+                    CLAIM, CLAIM,
                     MOVE, MOVE], newName,
                     {memory: {role: 'claimer'}});
             }
