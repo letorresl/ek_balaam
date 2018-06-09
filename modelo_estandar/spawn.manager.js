@@ -29,10 +29,10 @@ var spawnManager = {
         var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector');
         console.log('Recolectores: ' + recolectores.length);
 
-        var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector2');
+        var recolectores2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector2');
         console.log('Recolectores2: ' + recolectores.length);
 
-        var recolectores = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector3');
+        var recolectores3 = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector3');
         console.log('Recolectores3: ' + recolectores.length);
 
         var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'cargo');
@@ -124,7 +124,7 @@ var spawnManager = {
                 );
         }
 
-        // Recolectores a distancia
+        // Recolectores a distancia2
         if (
             harvesters.length >= minharvesters &&
             cargos.length >= mincargos &&
@@ -149,7 +149,7 @@ var spawnManager = {
                 );
         }
 
-        // Recolectores a distancia
+        // Recolectores a distancia3
         if (
             harvesters.length >= minharvesters &&
             cargos.length >= mincargos &&
