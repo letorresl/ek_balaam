@@ -26,35 +26,40 @@ var roleRecolector2 = {
         
         /* Almacenamiento */
         if (creep.memory.storing) {
-            var targets = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (
-                        (
-                            structure.structureType == STRUCTURE_EXTENSION ||
-                            structure.structureType == STRUCTURE_SPAWN ||
-                            structure.structureType == STRUCTURE_TOWER
-                        ) && (
-                            structure.energy < structure.energyCapacity
-                        ) || (
-                            (structure.structureType == STRUCTURE_CONTAINER ||
-                            structure.structureType == STRUCTURE_STORAGE) &&
-                            structure.store[RESOURCE_ENERGY] < structure.storeCapacity   
-                        )
-                    );
-                }
-            });
-            
+            if (creep.pos.roomName == Game.spawns['Base'].pos.roomName) {
+                var targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (
+                            (
+                                structure.structureType == STRUCTURE_EXTENSION ||
+                                structure.structureType == STRUCTURE_SPAWN ||
+                                structure.structureType == STRUCTURE_TOWER
+                            ) && (
+                                structure.energy < structure.energyCapacity
+                            ) || (
+                                (structure.structureType == STRUCTURE_CONTAINER ||
+                                structure.structureType == STRUCTURE_STORAGE) &&
+                                structure.store[RESOURCE_ENERGY] < structure.storeCapacity   
+                            )
+                        );
+                    }
+                });
+                
 
-            // Si hay almacenes disponibles, ir al mas cercano
-            if (targets.length > 0) {
-                objetivo = creep.pos.findClosestByPath(targets)
-                if (creep.transfer(objetivo, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(objetivo, {visualizePathStyle: {stroke: '#ffffff'}});
+                // Si hay almacenes disponibles, ir al mas cercano
+                if (targets.length > 0) {
+                    objetivo = creep.pos.findClosestByPath(targets)
+                    if (creep.transfer(objetivo, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(objetivo, {visualizePathStyle: {stroke: '#ffffff'}});
+                    }
+                }
+                // Ir a la base si no hay almacenes cerca
+                else if (creep.pos.roomName != Game.spawns['Base'].pos.roomName) {
+                    creep.moveTo(Game.spawns['Base'])
                 }
             }
-            // Ir a la base si no hay almacenes cerca
-            else if (creep.pos.roomName != Game.spawns['Base'].pos.roomName) {
-                creep.moveTo(Game.spawns['Base'])
+            else {
+                creep.moveTo(Game.spawns['Base']);
             }
         }
         /* Recoleccion de energia */
