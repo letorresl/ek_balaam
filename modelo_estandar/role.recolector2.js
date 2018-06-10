@@ -60,25 +60,26 @@ var roleRecolector2 = {
                 }
             }
             else {
-                creep.moveTo(Game.spawns['Base']);
+                creep.moveTo(Game.spawns['Base'], {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
         /* Recoleccion de energia */
         else {
             if (fuente2_flag) {
                 if (creep.pos.roomName == fuente2_flag.pos.roomName) {
-                    source = creep.pos.findClosestByPath(FIND_SOURCES, {
+                    //creep.moveTo(fuente2_flag);
+                    var source = creep.pos.findClosestByPath(FIND_SOURCES, {
                         filter: function(source){
                             //Access this sources memory and if this source has less then 2 workers return this source
                             return (
-                                source.memory.workers <= 2
+                                source.memory.workers <= 2 
                             );
                         }
                     });
 
                     // Si el creep puede cargar mas energia, recolectarla
                     if  (creep.carry.energy < creep.carryCapacity) {
-                        if (creep.memory.sourceId) {
+                        if (creep.memory.sourceId > 0) {
                             source = Game.getObjectById(creep.memory.sourceId);
                         }
                         if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
@@ -100,5 +101,6 @@ var roleRecolector2 = {
 };
 
 module.exports = roleRecolector2;
+
 
 
