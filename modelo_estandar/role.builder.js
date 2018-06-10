@@ -73,7 +73,7 @@ var roleBuilder = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
-            /** Reparacion de estructuras daÃ±adas **/
+            /** Reparacion de estructuras daÃÂ±adas **/
             else if (Game.getObjectById(creep.memory.mostDamaged)) {
                 var mostDamaged = Game.getObjectById(creep.memory.mostDamaged);
                 creep.say(mostDamaged.hits)
@@ -138,4 +138,5 @@ var roleBuilder = {
 };
 
 module.exports = roleBuilder;
+
 

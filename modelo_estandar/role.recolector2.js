@@ -8,7 +8,7 @@ var roleRecolector2 = {
     run: function(creep) {
         
         var cargos = _.filter(Game.creeps, (creep) => creep.memory.role == 'recolector');
-        var fuente_flag = Game.flags.fuente2_flag;
+        var fuente2_flag = Game.flags.fuente2_flag;
         
         if (creep.memory.storing && creep.carry.energy == 0) {
             creep.memory.storing = false;
@@ -23,6 +23,7 @@ var roleRecolector2 = {
             }
             creep.say('Almacenar');
         }
+        
         
         /* Almacenamiento */
         if (creep.memory.storing) {
@@ -64,18 +65,16 @@ var roleRecolector2 = {
         }
         /* Recoleccion de energia */
         else {
-            if (fuente_flag) {
-                if (creep.pos.roomName != fuente_flag.pos.roomName) {
-                    creep.moveTo(fuente_flag);
-                }
-                else {
+            if (fuente2_flag) {
+                if (creep.pos.roomName == fuente2_flag.pos.roomName) {
                     source = creep.pos.findClosestByPath(FIND_SOURCES, {
                         filter: function(source){
                             //Access this sources memory and if this source has less then 2 workers return this source
-                            return source.memory.workers <= 2; 
+                            return (
+                                source.memory.workers <= 2
+                            );
                         }
                     });
-        
 
                     // Si el creep puede cargar mas energia, recolectarla
                     if  (creep.carry.energy < creep.carryCapacity) {
@@ -86,9 +85,14 @@ var roleRecolector2 = {
                             creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
                         }
                         else {
-                            creep.memory.sourceId = source.id;
+                            if (source) {
+                                creep.memory.sourceId = source.id;
+                            }
                         }
                     }
+                }
+                else {
+                    creep.moveTo(fuente2_flag);
                 }
             }
         }
@@ -96,4 +100,5 @@ var roleRecolector2 = {
 };
 
 module.exports = roleRecolector2;
+
 
